@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_medicines">
+
+    <fragment
+        android:id="@+id/navigation_medicines"
+        android:name="ru.spbstu.gusev.medicinesstorage.ui.medicines.MedicinesFragment"
+        android:label="@string/title_medicines"
+        tools:layout="@layout/fragment_medicines" />
+
+    <fragment
+        android:id="@+id/navigation_reminders"
+        android:name="ru.spbstu.gusev.medicinesstorage.ui.reminders.RemindersFragment"
+        android:label="@string/title_reminders"
+        tools:layout="@layout/fragment_reminders" />
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="ru.spbstu.gusev.medicinesstorage.ui.account.AccountFragment"
+        android:label="@string/title_account"
+        tools:layout="@layout/fragment_account" />
+
+    <fragment
+        android:id="@+id/navigation_medicine_details"
+        android:name="ru.spbstu.gusev.medicinesstorage.ui.medicines.medicinedetails.MedicineDetailsFragment"
+        android:label="@string/medicine_details_label"
+        tools:layout="@layout/fragment_medicine_details"/>
+</navigation>

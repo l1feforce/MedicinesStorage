@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_medicines"
+        android:icon="@drawable/ic_medication_black_24dp"
+        android:title="@string/title_medicines" />
+
+    <item
+        android:id="@+id/navigation_reminders"
+        android:icon="@drawable/ic_today_24px"
+        android:title="@string/title_reminders" />
+
+    <item
+        android:id="@+id/navigation_account"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="@string/title_account" />
+
+</menu>

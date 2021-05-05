@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="ru.spbstu.gusev.medicinesstorage.ui.medicines.medicinedetails.MedicineDetailsViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.medicines.medicinedetails.MedicineDetailsFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="?attr/background"
+            android:elevation="32dp">
+
+            <Button
+                android:id="@+id/medicine_details_cancel_btn"
+                android:layout_width="wrap_content"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medicine_details_side_margins"
+                android:layout_marginTop="@dimen/medicine_details_side_margins"
+                android:layout_marginBottom="@dimen/medicine_details_side_margins"
+                android:onClick="@{view -> viewmodel.onCancel()}"
+                android:text="@string/medicine_details_cancel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/medicine_details_save_btn"
+                android:layout_width="wrap_content"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medicine_details_side_margins"
+                android:layout_marginEnd="@dimen/medicine_details_side_margins"
+                android:layout_marginBottom="@dimen/medicine_details_side_margins"
+                android:text="@string/medicine_details_save"
+                android:onClick="@{view -> viewmodel.onSave()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:id="@+id/medicine_details_image"
+                    src="@{viewmodel.medicineDetails.imageUrl}"
+                    android:layout_width="match_parent"
+                    android:layout_height="194dp"
+                    android:layout_marginStart="@dimen/medicine_details_side_margins"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="@dimen/medicine_details_side_margins"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@tools:sample/backgrounds/scenic" />
+
+                <TextView
+                    android:id="@+id/medicine_details_title_tv"
+                    style="@style/Headline6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="@dimen/medicine_details_side_margins"
+                    android:layout_marginEnd="@dimen/medicine_details_side_margins"
+                    android:text="@{viewmodel.medicineDetails.name}"
+                    android:textColor="?attr/colorOnBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/medicine_details_image" />
+
+                <TextView
+                    android:id="@+id/medicine_details_description_tv"
+                    style="@style/Body2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medicine_details_side_margins"
+                    android:layout_marginEnd="@dimen/medicine_details_side_margins"
+                    android:alpha="0.7"
+                    android:text="@{viewmodel.medicineDetails.description}"
+                    android:textColor="?attr/colorOnBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/medicine_details_title_tv" />
+
+                <TextView
+                    android:id="@+id/medicine_details_volume_title_tv"
+                    style="@style/Overline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medicine_details_side_margins"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="4dp"
+                    android:alpha="0.7"
+                    android:text="@string/medicine_details_residue"
+                    android:textColor="?attr/colorOnBackground"
+                    app:layout_constraintEnd_toStartOf="@+id/medicine_details_volume_edit_btn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/medicine_details_description_tv" />
+
+                <TextView
+                    android:id="@+id/medicine_details_volume_value_tv"
+                    style="@style/Subtitle1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medicine_details_side_margins"
+                    android:layout_marginEnd="4dp"
+                    android:text='@{String.valueOf(viewmodel.medicineDetails.residue) + " " + viewmodel.medicineDetails.unitsOfMeasure + "/" + String.valueOf(viewmodel.medicineDetails.volume) + " " + viewmodel.medicineDetails.unitsOfMeasure}'
+                    android:textColor="?attr/colorOnBackground"
+                    app:layout_constraintEnd_toStartOf="@+id/medicine_details_volume_edit_btn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/medicine_details_volume_title_tv" />
+
+                <ImageButton
+                    android:id="@+id/medicine_details_volume_edit_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/medicine_details_side_margins"
+                    android:alpha="0.7"
+                    android:background="@null"
+                    android:onClick="@{view -> viewmodel.editResidue()}"
+                    android:src="@drawable/ic_edit_24px"
+                    android:tint="?attr/colorOnBackground"
+                    app:layout_constraintBottom_toBottomOf="@id/medicine_details_volume_value_tv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/medicine_details_volume_title_tv" />
+
+                <View
+                    style="@style/Divider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="@dimen/medicine_details_side_margins"
+                    android:layout_marginEnd="@dimen/medicine_details_side_margins"
+                    app:layout_constraintTop_toBottomOf="@+id/medicine_details_volume_value_tv"
+                    app:layout_constraintBottom_toTopOf="@+id/medicine_details_use_until_title_tv"/>
+
+                <TextView
+                    android:id="@+id/medicine_details_use_until_title_tv"
+                    style="@style/Overline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medicine_details_side_margins"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="4dp"
+                    android:alpha="0.7"
+                    android:text="@string/medicine_details_use_until"
+                    android:textColor="?attr/colorOnBackground"
+                    app:layout_constraintEnd_toStartOf="@+id/medicine_details_use_until_edit_btn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/medicine_details_volume_value_tv" />
+
+                <TextView
+                    android:id="@+id/medicine_details_use_until_value_tv"
+                    style="@style/Subtitle1"
+                    date="@{viewmodel.medicineDetails.useUntil}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medicine_details_side_margins"
+                    android:layout_marginEnd="4dp"
+                    android:textColor="?attr/colorOnBackground"
+                    app:layout_constraintEnd_toStartOf="@+id/medicine_details_use_until_edit_btn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/medicine_details_use_until_title_tv" />
+
+                <ImageButton
+                    android:id="@+id/medicine_details_use_until_edit_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/medicine_details_side_margins"
+                    android:alpha="0.7"
+                    android:background="@null"
+                    android:onClick="@{view -> viewmodel.editUseUntil()}"
+                    android:src="@drawable/ic_edit_24px"
+                    android:tint="?attr/colorOnBackground"
+                    app:layout_constraintBottom_toBottomOf="@id/medicine_details_use_until_value_tv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/medicine_details_use_until_title_tv" />
+
+                <View
+                    style="@style/Divider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="@dimen/medicine_details_side_margins"
+                    android:layout_marginEnd="@dimen/medicine_details_side_margins"
+                    app:layout_constraintTop_toBottomOf="@+id/medicine_details_use_until_value_tv"
+                    app:layout_constraintBottom_toTopOf="@+id/medicine_details_store_after_open_title_tv"/>
+
+                <TextView
+                    android:id="@+id/medicine_details_store_after_open_title_tv"
+                    style="@style/Overline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medicine_details_side_margins"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="4dp"
+                    android:alpha="0.7"
+                    android:text="@string/medicine_details_store_after_open"
+                    android:textColor="?attr/colorOnBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/medicine_details_use_until_value_tv" />
+
+                <TextView
+                    android:id="@+id/medicine_details_store_after_open_value_tv"
+                    style="@style/Subtitle1"
+                    days="@{viewmodel.medicineDetails.storeAfterOpen}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medicine_details_side_margins"
+                    android:layout_marginEnd="4dp"
+                    android:textColor="?attr/colorOnBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/medicine_details_store_after_open_title_tv" />
+
+                <View
+                    style="@style/Divider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="@dimen/medicine_details_side_margins"
+                    android:layout_marginEnd="@dimen/medicine_details_side_margins"
+                    app:layout_constraintTop_toBottomOf="@+id/medicine_details_store_after_open_value_tv"
+                    app:layout_constraintBottom_toTopOf="@+id/medicine_details_active_ingredient_title_tv"/>
+
+                <TextView
+                    android:id="@+id/medicine_details_active_ingredient_title_tv"
+                    style="@style/Overline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medicine_details_side_margins"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="4dp"
+                    android:alpha="0.7"
+                    android:text="@string/medicine_details_active_ingredient"
+                    android:textColor="?attr/colorOnBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/medicine_details_store_after_open_value_tv" />
+
+                <TextView
+                    android:id="@+id/medicine_details_active_ingredient_value_tv"
+                    style="@style/Subtitle1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medicine_details_side_margins"
+                    android:layout_marginEnd="4dp"
+                    android:text="@{viewmodel.medicineDetails.activeIngredient}"
+                    android:textColor="?attr/colorOnBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/medicine_details_active_ingredient_title_tv" />
+
+                <View
+                    style="@style/Divider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="@dimen/medicine_details_side_margins"
+                    android:layout_marginEnd="@dimen/medicine_details_side_margins"
+                    app:layout_constraintTop_toBottomOf="@+id/medicine_details_active_ingredient_value_tv"
+                    app:layout_constraintBottom_toTopOf="@+id/medicine_details_pharmacological_group_title_tv"/>
+
+                <TextView
+                    android:id="@+id/medicine_details_pharmacological_group_title_tv"
+                    style="@style/Overline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medicine_details_side_margins"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="4dp"
+                    android:alpha="0.7"
+                    android:text="@string/medicine_details_pharmacological_group"
+                    android:textColor="?attr/colorOnBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/medicine_details_active_ingredient_value_tv" />
+
+                <TextView
+                    android:id="@+id/medicine_details_pharmacological_group_value_tv"
+                    style="@style/Subtitle1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/medicine_details_side_margins"
+                    android:layout_marginEnd="4dp"
+                    android:text="@{viewmodel.medicineDetails.pharmacologicalGroup}"
+                    android:textColor="?attr/colorOnBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/medicine_details_pharmacological_group_title_tv" />
+
+                <Button
+                    android:id="@+id/medicine_details_open_instruction_button"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:onClick="@{view -> viewmodel.openInstruction(viewmodel.medicineDetails.instructionUrl)}"
+                    android:text="@string/medicine_details_open_instruction"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/medicine_details_pharmacological_group_value_tv" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </FrameLayout>
+</layout>
