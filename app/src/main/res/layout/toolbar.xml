@@ -11,5 +11,4 @@
     app:layout_constraintHeight_default="spread"
     app:navigationIcon="@drawable/ic_home_black_24dp"
     app:title="@string/app_name"
-    app:titleTextAppearance="@style/Body2"
     app:titleTextColor="?attr/colorOnPrimary" />

@@ -12,22 +12,26 @@
             type="ru.spbstu.gusev.medicinesstorage.ui.medicines.medicinedetails.MedicineDetailsViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/background"
         tools:context=".ui.medicines.medicinedetails.MedicineDetailsFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/medicine_details_bottom_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:background="?attr/background"
-            android:elevation="32dp">
+            android:elevation="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <Button
                 android:id="@+id/medicine_details_cancel_btn"
-                android:layout_width="wrap_content"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/medicine_details_side_margins"
                 android:layout_marginTop="@dimen/medicine_details_side_margins"
@@ -40,28 +44,31 @@
 
             <Button
                 android:id="@+id/medicine_details_save_btn"
-                android:layout_width="wrap_content"
                 style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/medicine_details_side_margins"
                 android:layout_marginEnd="@dimen/medicine_details_side_margins"
                 android:layout_marginBottom="@dimen/medicine_details_side_margins"
-                android:text="@string/medicine_details_save"
                 android:onClick="@{view -> viewmodel.onSave()}"
+                android:text="@string/medicine_details_save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
+            android:id="@+id/medicine_details_content_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top">
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/medicine_details_bottom_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
 
                 <ImageView
                     android:id="@+id/medicine_details_image"
@@ -98,7 +105,7 @@
                     android:layout_marginStart="@dimen/medicine_details_side_margins"
                     android:layout_marginEnd="@dimen/medicine_details_side_margins"
                     android:alpha="0.7"
-                    android:text="@{viewmodel.medicineDetails.description}"
+                    android:text="@{viewmodel.medicineDetails.medicineDescription}"
                     android:textColor="?attr/colorOnBackground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -148,12 +155,12 @@
 
                 <View
                     style="@style/Divider"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginStart="@dimen/medicine_details_side_margins"
                     android:layout_marginEnd="@dimen/medicine_details_side_margins"
-                    app:layout_constraintTop_toBottomOf="@+id/medicine_details_volume_value_tv"
-                    app:layout_constraintBottom_toTopOf="@+id/medicine_details_use_until_title_tv"/>
+                    app:layout_constraintBottom_toTopOf="@+id/medicine_details_use_until_title_tv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/medicine_details_volume_value_tv" />
 
                 <TextView
                     android:id="@+id/medicine_details_use_until_title_tv"
@@ -199,12 +206,12 @@
 
                 <View
                     style="@style/Divider"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginStart="@dimen/medicine_details_side_margins"
                     android:layout_marginEnd="@dimen/medicine_details_side_margins"
-                    app:layout_constraintTop_toBottomOf="@+id/medicine_details_use_until_value_tv"
-                    app:layout_constraintBottom_toTopOf="@+id/medicine_details_store_after_open_title_tv"/>
+                    app:layout_constraintBottom_toTopOf="@+id/medicine_details_store_after_open_title_tv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/medicine_details_use_until_value_tv" />
 
                 <TextView
                     android:id="@+id/medicine_details_store_after_open_title_tv"
@@ -236,12 +243,12 @@
 
                 <View
                     style="@style/Divider"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginStart="@dimen/medicine_details_side_margins"
                     android:layout_marginEnd="@dimen/medicine_details_side_margins"
-                    app:layout_constraintTop_toBottomOf="@+id/medicine_details_store_after_open_value_tv"
-                    app:layout_constraintBottom_toTopOf="@+id/medicine_details_active_ingredient_title_tv"/>
+                    app:layout_constraintBottom_toTopOf="@+id/medicine_details_active_ingredient_title_tv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/medicine_details_store_after_open_value_tv" />
 
                 <TextView
                     android:id="@+id/medicine_details_active_ingredient_title_tv"
@@ -273,12 +280,12 @@
 
                 <View
                     style="@style/Divider"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginStart="@dimen/medicine_details_side_margins"
                     android:layout_marginEnd="@dimen/medicine_details_side_margins"
-                    app:layout_constraintTop_toBottomOf="@+id/medicine_details_active_ingredient_value_tv"
-                    app:layout_constraintBottom_toTopOf="@+id/medicine_details_pharmacological_group_title_tv"/>
+                    app:layout_constraintBottom_toTopOf="@+id/medicine_details_pharmacological_group_title_tv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/medicine_details_active_ingredient_value_tv" />
 
                 <TextView
                     android:id="@+id/medicine_details_pharmacological_group_title_tv"
@@ -314,8 +321,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="16dp"
                     android:onClick="@{view -> viewmodel.openInstruction(viewmodel.medicineDetails.instructionUrl)}"
                     android:text="@string/medicine_details_open_instruction"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/medicine_details_pharmacological_group_value_tv" />
@@ -323,5 +332,5 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

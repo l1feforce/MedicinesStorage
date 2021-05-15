@@ -16,7 +16,28 @@
     <string name="medicine_details_label">Medicine details</string>
     <string name="medicine_details_cancel">Cancel</string>
     <string name="medicine_details_save">Save</string>
-    <plurals name="medicine_details_use_until_plurals">
+    <string name="menu_search_title">Search</string>
+    <string name="search_hint">Search</string>
+    <string name="medicines_empty_title">Here will be your medicines</string>
+    <string name="menu_edit_title">Edit</string>
+    <string name="medicines_search_search">Search</string>
+    <string name="medicines_search_label">Medicines search</string>
+    <string name="item_medicines_search_medicine_image">Medicine image</string>
+    <string name="dialog_medicine_details_edit_residue_naming">Naming</string>
+    <string name="dialog_medicine_details_edit_residue_volume">Volume</string>
+    <string name="dialog_medicine_details_edit_residue_volume_error">Wrong data format</string>
+    <string name="dialog_medicine_details_edit_residue_units">Unit</string>
+    <string name="dialog_medicine_details_edit_residue_packages_amount">Packages</string>
+    <string name="dialog_medicine_details_edit_residue_residue">Residue</string>
+    <string name="dialog_medicine_details_edit_residue_ok">OK</string>
+    <string name="dialog_medicine_details_edit_residue_cancel">Cancel</string>
+    <string name="dialog_medicine_details_date_picker_title">Select an expiration date</string>
+    <string name="menu_delete_title">Delete</string>
+    <string name="medicine_details_delete_dialog_message">Are you sure you want to remove the medicine?</string>
+    <string name="medicine_details_delete_dialog_title">Warning</string>
+    <string name="scanner_label">Scaner</string>
+    <string name="medicines_search_empty_title">Nothing is found</string>
+    <plurals name="medicine_details_use_until_plurals_days">
         <item quantity="zero">(expired)</item>
         <item quantity="one">(%1$d more day)</item>
         <item quantity="two">(%1$d more days)</item>
@@ -24,6 +45,48 @@
         <item quantity="many">(%1$d more days)</item>
         <item quantity="other">(%1$d more days)</item>
     </plurals>
+    <plurals name="medicine_details_use_until_plurals_months">
+        <item quantity="zero">(expired)</item>
+        <item quantity="one">(%1$d more month)</item>
+        <item quantity="two">(%1$d more months)</item>
+        <item quantity="few">(%1$d more months)</item>
+        <item quantity="many">(%1$d more months)</item>
+        <item quantity="other">(%1$d more months)</item>
+    </plurals>
+    <plurals name="medicine_details_use_until_plurals_years">
+        <item quantity="zero">(expired)</item>
+        <item quantity="one">(%1$d more year)</item>
+        <item quantity="two">(%1$d more years)</item>
+        <item quantity="few">(%1$d more years)</item>
+        <item quantity="many">(%1$d more years)</item>
+        <item quantity="other">(%1$d more years)</item>
+    </plurals>
+
+    <plurals name="medicine_details_use_until_expired_plurals_days">
+        <item quantity="zero">(expired)</item>
+        <item quantity="one">(%1$d day ago)</item>
+        <item quantity="two">(%1$d days ago)</item>
+        <item quantity="few">(%1$d days ago)</item>
+        <item quantity="many">(%1$d days ago)</item>
+        <item quantity="other">(%1$d days ago)</item>
+    </plurals>
+    <plurals name="medicine_details_use_until_expired_plurals_months">
+        <item quantity="zero">(expired)</item>
+        <item quantity="one">(%1$d month ago)</item>
+        <item quantity="two">(%1$d months ago)</item>
+        <item quantity="few">(%1$d months ago)</item>
+        <item quantity="many">(%1$d months ago)</item>
+        <item quantity="other">(%1$d months ago)</item>
+    </plurals>
+    <plurals name="medicine_details_use_until_expired_plurals_years">
+        <item quantity="zero">(expired)</item>
+        <item quantity="one">(%1$d year ago)</item>
+        <item quantity="two">(%1$d years ago)</item>
+        <item quantity="few">(%1$d years ago)</item>
+        <item quantity="many">(%1$d years ago)</item>
+        <item quantity="other">(%1$d years ago)</item>
+    </plurals>
+
     <plurals name="medicine_details_store_after_open_plurals">
         <item quantity="one">Store %1$d day</item>
         <item quantity="two">Store %1$d days</item>
@@ -31,4 +94,9 @@
         <item quantity="many">Store %1$d days</item>
         <item quantity="other">Store %1$d days</item>
     </plurals>
+
+    <string-array name="medicines_add_type_array">
+        <item>Scan barcode</item>
+        <item>Search</item>
+    </string-array>
 </resources>

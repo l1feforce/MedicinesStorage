@@ -11,6 +11,7 @@
         style="@style/Widget.MaterialComponents.Toolbar.Primary.CustomToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="8dp"
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_default="spread"

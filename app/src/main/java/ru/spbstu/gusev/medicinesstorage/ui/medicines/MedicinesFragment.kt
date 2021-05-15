@@ -1,21 +1,30 @@
 package ru.spbstu.gusev.medicinesstorage.ui.medicines
 
+import android.content.Context
+import android.content.pm.PermissionInfo
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.util.Log
+import android.view.*
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.spbstu.gusev.medicinesstorage.R
+import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
 import ru.spbstu.gusev.medicinesstorage.databinding.FragmentMedicinesBinding
+import ru.spbstu.gusev.medicinesstorage.extensions.getColorFromTheme
+import ru.spbstu.gusev.medicinesstorage.extensions.hideKeyboard
+import ru.spbstu.gusev.medicinesstorage.extensions.setIconsColor
+import ru.spbstu.gusev.medicinesstorage.extensions.setupSearch
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.adapters.MedicinesAdapter
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.medicinedetails.MEDICINE_DETAILS_KEY
 import ru.spbstu.gusev.medicinesstorage.utils.EventObserver
+import ru.spbstu.gusev.medicinesstorage.utils.PermissionsUtil
 
 class MedicinesFragment : Fragment() {
 
@@ -29,6 +38,7 @@ class MedicinesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_medicines, container, false)
 
         binding.lifecycleOwner = this.viewLifecycleOwner
@@ -46,15 +56,57 @@ class MedicinesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.freshMedicinesList.observe(viewLifecycleOwner, Observer {
+        viewModel.freshMedicinesList.observe(viewLifecycleOwner, {
             freshMedicinesAdapter.submitList(it)
         })
-        viewModel.expiredMedicinesList.observe(viewLifecycleOwner, Observer {
+        viewModel.expiredMedicinesList.observe(viewLifecycleOwner, {
             expiredMedicinesAdapter.submitList(it)
         })
         viewModel.openMedicineEvent.observe(viewLifecycleOwner, EventObserver { medicineDetails ->
             val bundle = bundleOf(MEDICINE_DETAILS_KEY to medicineDetails)
             findNavController().navigate(R.id.navigation_medicine_details, bundle)
         })
+        viewModel.addNewMedicineEvent.observe(viewLifecycleOwner, EventObserver {
+
+            MaterialAlertDialogBuilder(requireContext())
+                .setItems(resources.getStringArray(R.array.medicines_add_type_array)) { dialog, which ->
+                    when (which) {
+                        1 -> findNavController().navigate(R.id.navigation_medicines_search)
+                        else -> {
+                            PermissionsUtil.requestPermission(
+                                requireContext(),
+                                PermissionsUtil.cameraPermission,
+                                ""
+                            ) {
+                                findNavController().navigate(R.id.navigation_scanner)
+                            }
+                        }
+                    }
+                }.show()
+        })
+        viewModel.medicinesList.observe(viewLifecycleOwner, {
+            viewModel.filteredMedicinesList.value = it
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.search_menu, menu)
+        val menuItem = menu.findItem(R.id.menu_item_search)
+        val searchView = menuItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                activity.hideKeyboard()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.filter(newText)
+                return true
+            }
+        })
+        val color = getColorFromTheme(R.attr.colorOnPrimary)
+        menu.setIconsColor(color)
+        menu.setupSearch(this)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 }

@@ -3,6 +3,8 @@ package ru.spbstu.gusev.medicinesstorage
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
@@ -17,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setDefaultNightMode(MODE_NIGHT_NO)
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -37,13 +40,24 @@ class MainActivity : AppCompatActivity() {
     private fun setupBottomNavBar() {
         val navController = findNavController(R.id.nav_host_fragment)
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.nav_view)
+        val toolbar: MaterialToolbar = findViewById(R.id.toolbar)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.navigation_medicine_details -> {
                     bottomNavigationView.visibility = View.GONE
+                    toolbar.visibility = View.VISIBLE
+                }
+                R.id.navigation_medicines_search -> {
+                    bottomNavigationView.visibility = View.GONE
+                    toolbar.visibility = View.VISIBLE
+                }
+                R.id.navigation_scanner -> {
+                    bottomNavigationView.visibility = View.GONE
+                    toolbar.visibility = View.GONE
                 }
                 else -> {
                     bottomNavigationView.visibility = View.VISIBLE
+                    toolbar.visibility = View.VISIBLE
                 }
             }
         }

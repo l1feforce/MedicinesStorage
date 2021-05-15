@@ -9,7 +9,7 @@ import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
 import ru.spbstu.gusev.medicinesstorage.databinding.ItemMedicineBinding
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.bindings.ItemClickInterface
 
-class MedicinesAdapter : ListAdapter<Medicine, MedicinesAdapter.MedicineViewHolder>(Companion) {
+class MedicinesAdapter : ListAdapter<Medicine, MedicinesAdapter.MedicineViewHolder>(Companion), OnClickListenerAdapter {
 
     private lateinit var onItemClickListener: ItemClickInterface
 
@@ -42,7 +42,7 @@ class MedicinesAdapter : ListAdapter<Medicine, MedicinesAdapter.MedicineViewHold
         holder.binding.executePendingBindings()
     }
 
-    fun setOnItemClickListener(action: ItemClickInterface) {
+    override fun setOnItemClickListener(action: ItemClickInterface) {
         onItemClickListener = action
     }
 }
