@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="reminderItem"
+            type="ru.spbstu.gusev.medicinesstorage.models.Reminder" />
+
+        <import type="kotlin.jvm.functions.Function2" />
+
+        <import type="kotlin.Unit" />
+
+        <import type="android.view.View" />
+
+        <import type="ru.spbstu.gusev.medicinesstorage.models.Reminder" />
+
+        <variable
+            name="onChecked"
+            type="Function2&lt;Reminder, View, Unit>" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/item_reminder_image"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            srcRes="@{reminderItem.imageRes}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/item_reminder_title_tv"
+            style="@style/Subtitle1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{reminderItem.tradeName}"
+            android:textColor="?attr/colorOnBackground"
+            app:layout_constraintBottom_toTopOf="@+id/item_reminder_description_tv"
+            app:layout_constraintEnd_toStartOf="@+id/item_reminder_checkbox"
+            app:layout_constraintStart_toEndOf="@+id/item_reminder_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="@tools:sample/first_names" />
+
+        <TextView
+            android:id="@+id/item_reminder_description_tv"
+            style="@style/Body2"
+            nextDose="@{reminderItem}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:alpha="0.7"
+            android:textColor="?attr/colorOnBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/item_reminder_checkbox"
+            app:layout_constraintStart_toEndOf="@+id/item_reminder_image"
+            app:layout_constraintTop_toBottomOf="@id/item_reminder_title_tv"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="@tools:sample/full_names" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/item_reminder_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:checked="@{reminderItem.started}"
+            android:onClick="@{(view) -> onChecked.invoke(reminderItem, view)}"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

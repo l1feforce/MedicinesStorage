@@ -6,13 +6,12 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
-import ru.spbstu.gusev.gpstracker.data.network.wrapper.ResultWrapper
+import ru.spbstu.gusev.medicinesstorage.data.network.helpers.ResultWrapper
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
 import ru.spbstu.gusev.medicinesstorage.data.network.medicinesdatabase.MedicinesNetworkRepository
-import ru.spbstu.gusev.medicinesstorage.utils.Event
+import ru.spbstu.gusev.medicinesstorage.utils.livedata.Event
 
-class MedicinesSearchViewModel(
-    val searchMedicinesRepository: MedicinesNetworkRepository) : ViewModel() {
+class MedicinesSearchViewModel(val searchMedicinesRepository: MedicinesNetworkRepository) : ViewModel() {
     val searchQuery = MutableLiveData<String>("")
     var oldQuery = ""
     val barcode = MutableLiveData<String>()

@@ -1,6 +1,5 @@
-package ru.spbstu.gusev.medicinesstorage.ui.medicines.camera
+package ru.spbstu.gusev.medicinesstorage.ui.medicines.scanner
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,13 +17,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.spbstu.gusev.medicinesstorage.R
-import ru.spbstu.gusev.medicinesstorage.databinding.FragmentMedicinesSearchBinding
 import ru.spbstu.gusev.medicinesstorage.databinding.FragmentScannerBinding
-import ru.spbstu.gusev.medicinesstorage.ui.medicines.adapters.MedicinesSearchAdapter
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.medicinessearch.MedicinesSearchFragment
-import ru.spbstu.gusev.medicinesstorage.ui.medicines.medicinessearch.MedicinesSearchViewModel
-import ru.spbstu.gusev.medicinesstorage.utils.Event
-import ru.spbstu.gusev.medicinesstorage.utils.EventObserver
+import ru.spbstu.gusev.medicinesstorage.utils.livedata.Event
+import ru.spbstu.gusev.medicinesstorage.utils.livedata.EventObserver
 
 class ScannerFragment : Fragment() {
 

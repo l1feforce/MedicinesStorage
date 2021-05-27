@@ -3,15 +3,15 @@ package ru.spbstu.gusev.medicinesstorage.ui.medicines
 import androidx.lifecycle.*
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MedicinesDatabase
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
-import ru.spbstu.gusev.medicinesstorage.utils.Event
+import ru.spbstu.gusev.medicinesstorage.utils.livedata.Event
 
-class MedicinesViewModel(val userMedicinesMockRepository: MedicinesDatabase) : ViewModel() {
+class MedicinesViewModel(val medicinesRepository: MedicinesDatabase) : ViewModel() {
 
     private val currentTimeSeconds = System.currentTimeMillis() / 1000
 
     val medicinesList =
-        userMedicinesMockRepository.medicinesDao().getAll().asLiveData()
-    val filteredMedicinesList = MutableLiveData(userMedicinesMockRepository.medicinesDao().getAll().asLiveData().value)
+        medicinesRepository.medicinesDao().getAll().asLiveData()
+    val filteredMedicinesList = MutableLiveData(medicinesRepository.medicinesDao().getAll().asLiveData().value)
     val isEmptyRecyclerView =
         Transformations.map(medicinesList) { it.isEmpty() }
 

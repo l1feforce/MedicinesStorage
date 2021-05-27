@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
 import ru.spbstu.gusev.medicinesstorage.databinding.ItemMedicineBinding
-import ru.spbstu.gusev.medicinesstorage.ui.medicines.bindings.ItemClickInterface
 
 class MedicinesAdapter : ListAdapter<Medicine, MedicinesAdapter.MedicineViewHolder>(Companion), OnClickListenerAdapter {
 

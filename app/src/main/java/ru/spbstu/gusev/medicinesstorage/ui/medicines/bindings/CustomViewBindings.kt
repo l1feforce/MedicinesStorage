@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 import ru.spbstu.gusev.medicinesstorage.R
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
+import ru.spbstu.gusev.medicinesstorage.ui.medicines.adapters.ItemClickInterface
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.adapters.OnClickListenerAdapter
 import ru.spbstu.gusev.medicinesstorage.utils.DateUtil
 import java.lang.StringBuilder
@@ -28,7 +29,7 @@ fun RecyclerView.setAdapterAndOnItemClickListener(
 
 @BindingAdapter(value = ["src"])
 fun ImageView.bindImageByUrl(url: String) {
-    if (url.isBlank()) this.setImageResource(R.drawable.ic_medication_package)//Glide.with(this).load(R.drawable.ic_medicine_package_png).into(this)
+    if (url.isBlank()) this.setImageResource(R.drawable.ic_medication_package)
     else Glide.with(this).load(url).into(this)
 }
 
@@ -149,12 +150,5 @@ fun TextInputEditText.setInt(number: Int) {
 
 @InverseBindingAdapter(attribute = "android:text")
 fun TextInputEditText.getInt(): Int {
-    val text = this.text.toString().toIntOrNull()
-    if (text == null) this.error =
-        this.resources.getString(R.string.dialog_medicine_details_edit_residue_volume_error)
-    return text ?: 0
-}
-
-interface ItemClickInterface {
-    fun onItemClickListener(medicine: Medicine)
+    return this.text.toString().toIntOrNull() ?: 0
 }

@@ -7,13 +7,13 @@
 
         <variable
             name="viewmodel"
-            type="ru.spbstu.gusev.medicinesstorage.ui.medicines.camera.ScannerViewModel" />
+            type="ru.spbstu.gusev.medicinesstorage.ui.medicines.scanner.ScannerViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.medicines.camera.ScannerFragment">
+        tools:context=".ui.medicines.scanner.ScannerFragment">
 
         <com.budiyev.android.codescanner.CodeScannerView
             android:id="@+id/scanner_view"

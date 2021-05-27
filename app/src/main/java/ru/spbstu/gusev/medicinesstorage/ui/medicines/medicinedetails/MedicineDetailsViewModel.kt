@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MedicinesDatabase
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.models.ResidueDetails
-import ru.spbstu.gusev.medicinesstorage.utils.Event
+import ru.spbstu.gusev.medicinesstorage.utils.livedata.Event
 
 class MedicineDetailsViewModel(val userMedicinesRepository: MedicinesDatabase) : ViewModel() {
 

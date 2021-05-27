@@ -1,9 +1,8 @@
 package ru.spbstu.gusev.medicinesstorage.data.network.medicinesdatabase
 
-import ru.spbstu.gusev.gpstracker.data.network.wrapper.ResultWrapper
+import ru.spbstu.gusev.medicinesstorage.data.network.helpers.ResultWrapper
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
 import ru.spbstu.gusev.medicinesstorage.data.network.helpers.safeApiCall
-import ru.spbstu.gusev.medicinesstorage.data.network.medicinesdatabase.MedicinesDatabaseApi
 
 class MedicinesNetworkRepository(val medicinesDatabaseApi: MedicinesDatabaseApi) {
 

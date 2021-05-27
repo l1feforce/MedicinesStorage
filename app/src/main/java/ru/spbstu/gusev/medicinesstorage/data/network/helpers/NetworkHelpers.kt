@@ -6,8 +6,6 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
-import ru.spbstu.gusev.gpstracker.data.network.wrapper.ErrorResponse
-import ru.spbstu.gusev.gpstracker.data.network.wrapper.ResultWrapper
 import java.io.IOException
 import java.nio.charset.Charset
 

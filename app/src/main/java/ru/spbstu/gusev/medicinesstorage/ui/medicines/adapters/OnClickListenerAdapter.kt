@@ -1,8 +1,12 @@
 package ru.spbstu.gusev.medicinesstorage.ui.medicines.adapters
 
-import ru.spbstu.gusev.medicinesstorage.ui.medicines.bindings.ItemClickInterface
+import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
 
 interface OnClickListenerAdapter {
 
     fun setOnItemClickListener(action: ItemClickInterface)
+}
+
+interface ItemClickInterface {
+    fun onItemClickListener(medicine: Medicine)
 }

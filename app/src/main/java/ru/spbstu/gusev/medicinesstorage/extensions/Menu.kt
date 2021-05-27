@@ -16,6 +16,7 @@ import ru.spbstu.gusev.medicinesstorage.R
 
 fun Menu.setIconsColor(@ColorInt color: Int) {
     this.forEach {
+        if (it.icon == null) return@forEach
         it.icon.setColorFilter(
             color, PorterDuff.Mode.SRC_ATOP
         )
@@ -32,7 +33,7 @@ fun Menu.setupSearch(fragment: Fragment) {
         queryHint = this.resources.getString(R.string.search_hint)
         isSubmitButtonEnabled = true
         findViewById<EditText>(androidx.appcompat.R.id.search_src_text).apply {
-            setTextColor(fragment.getColorFromTheme(R.attr.colorOnPrimary))
+            setTextColor(fragment.getColorFromTheme(R.attr.colorOnBackground))
         }
     }
 }

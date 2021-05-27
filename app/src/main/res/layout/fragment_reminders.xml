@@ -4,28 +4,171 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View" />
+
         <variable
             name="viewmodel"
             type="ru.spbstu.gusev.medicinesstorage.ui.reminders.RemindersViewModel" />
+
+        <variable
+            name="haveToTakeRemindersAdapter"
+            type="ru.spbstu.gusev.medicinesstorage.ui.reminders.adapters.HaveToTakeRemindersAdapter" />
+
+        <variable
+            name="remindersAdapter"
+            type="ru.spbstu.gusev.medicinesstorage.ui.reminders.adapters.RemindersAdapter" />
+
+        <import type="kotlin.jvm.functions.Function1" />
+
+        <import type="kotlin.Unit" />
+
+        <import type="ru.spbstu.gusev.medicinesstorage.models.Reminder" />
+        <import type="ru.spbstu.gusev.medicinesstorage.models.TriggeredReminder" />
+
+        <variable
+            name="onClickReminder"
+            type="Function1&lt;Reminder, Unit>" />
+
+        <variable
+            name="onClickTriggeredReminder"
+            type="Function1&lt;TriggeredReminder, Unit>" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/background"
         tools:context=".ui.reminders.RemindersFragment">
 
-        <TextView
-            android:id="@+id/text_home"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/reminders_content_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".ui.reminders.RemindersFragment">
+
+                <androidx.constraintlayout.widget.Group
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewmodel.isEmptyHaveToTakeRemindersList() ? View.GONE : View.VISIBLE}"
+                    app:constraint_referenced_ids="have_to_take_reminders_title_tv,have_to_take_reminders_recycler_view"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/have_to_take_reminders_title_tv"
+                    style="@style/Overline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/reminders_have_to_take_title"
+                    android:textColor="?attr/colorOnBackground"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/have_to_take_reminders_recycler_view"
+                    setAdapterReminders="@{haveToTakeRemindersAdapter}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/have_to_take_reminders_title_tv"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_reminder" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewmodel.isEmptyRecyclerView() ? View.GONE : View.VISIBLE}"
+                    app:constraint_referenced_ids="reminders_title_tv,reminders_recycler_view"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/reminders_title_tv"
+                    style="@style/Overline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/reminders_reminders_title"
+                    android:textColor="?attr/colorOnBackground"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/have_to_take_reminders_recycler_view" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/reminders_recycler_view"
+                    setAdapterReminders="@{remindersAdapter}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/reminders_title_tv"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_medicine" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/reminders_extended_fab"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
+            android:contentDescription="@string/medicines_extended_fab_label"
+            android:onClick="@{(view) -> viewmodel.addNewReminder()}"
+            android:text="@string/medicines_extended_fab_label"
+            android:textColor="?attr/colorOnPrimary"
+            app:icon="@drawable/ic_plus_24dp"
+            app:iconTint="?attr/colorOnPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{(viewmodel.isEmptyRecyclerView() &amp;&amp; viewmodel.isEmptyHaveToTakeRemindersList()) ? View.VISIBLE : View.GONE}"
+            app:constraint_referenced_ids="reminders_empty_list_img,reminders_empty_list_title"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/reminders_empty_list_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/reminders_empty_list_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:srcCompat="@drawable/ic_date_range_24px" />
+
+        <TextView
+            android:id="@+id/reminders_empty_list_title"
+            style="@style/Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="center"
-            android:textSize="20sp"
+            android:alpha="0.64"
+            android:text="@string/reminders_empty_title"
+            android:textColor="?attr/colorOnBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/reminders_empty_list_img"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

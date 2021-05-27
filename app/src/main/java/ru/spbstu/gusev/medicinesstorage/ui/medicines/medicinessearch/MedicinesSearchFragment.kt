@@ -15,7 +15,7 @@ import ru.spbstu.gusev.medicinesstorage.databinding.FragmentMedicinesSearchBindi
 import ru.spbstu.gusev.medicinesstorage.extensions.hideKeyboard
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.adapters.MedicinesSearchAdapter
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.medicinedetails.MEDICINE_DETAILS_KEY
-import ru.spbstu.gusev.medicinesstorage.utils.EventObserver
+import ru.spbstu.gusev.medicinesstorage.utils.livedata.EventObserver
 
 class MedicinesSearchFragment : Fragment() {
     companion object{

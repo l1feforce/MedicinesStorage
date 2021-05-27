@@ -37,7 +37,25 @@
 
     <fragment
         android:id="@+id/navigation_scanner"
-        android:name="ru.spbstu.gusev.medicinesstorage.ui.medicines.camera.ScannerFragment"
+        android:name="ru.spbstu.gusev.medicinesstorage.ui.medicines.scanner.ScannerFragment"
         android:label="@string/scanner_label"
         tools:layout="@layout/fragment_scanner" />
+
+    <fragment
+        android:id="@+id/navigation_adding_new_search"
+        android:name="ru.spbstu.gusev.medicinesstorage.ui.reminders.addingnewsearch.AddingNewSearchFragment"
+        android:label="@string/adding_new_search_label"
+        tools:layout="@layout/fragment_adding_new_search" />
+
+    <fragment
+        android:id="@+id/navigation_reminder_details"
+        android:name="ru.spbstu.gusev.medicinesstorage.ui.reminders.reminderdetails.ReminderDetailsFragment"
+        android:label="@string/reminder_details_label"
+        tools:layout="@layout/fragment_reminder_details"/>
+
+    <fragment
+        android:id="@+id/navigation_action_intake_complete"
+        android:name="ru.spbstu.gusev.medicinesstorage.ui.reminders.notificationactions.ActionIntakeCompleteFragment"
+        android:label="@string/action_intake_complete_label"
+        />
 </navigation>

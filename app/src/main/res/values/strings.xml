@@ -37,6 +37,48 @@
     <string name="medicine_details_delete_dialog_title">Warning</string>
     <string name="scanner_label">Scaner</string>
     <string name="medicines_search_empty_title">Nothing is found</string>
+    <string name="item_reminder_skip_btn">Skip</string>
+    <string name="reminders_reminders_title">Reminders</string>
+    <string name="reminders_have_to_take_title">Have to take</string>
+    <string name="reminders_empty_title">Here will be your reminders</string>
+    <string name="menu_account_title">Account</string>
+    <string name="adding_new_search_label">Add new reminder</string>
+    <string name="reminder_details_dosage_form">Dosage form</string>
+    <string name="reminder_details_dose">Dose</string>
+    <string name="reminder_details_medication_schedule">Medication schedule</string>
+    <string name="reminder_details_duration">Reception duration</string>
+    <string name="item_take_time_title">%d intake</string>
+    <string name="item_take_time_spinner_morning">Morning (8:00)</string>
+    <string name="item_take_time_spinner_day">Day (14:00)</string>
+    <string name="item_take_time_spinner_night">Night (19:00)</string>
+    <string name="item_take_time_spinner_custom">Choose time</string>
+    <string name="reminder_details_intakes_amount">How many times a day</string>
+    <string name="reminder_details_delete_dialog_message">Are you sure you want to remove the reminder?</string>
+    <string name="reminder_details_label">Reminder details</string>
+    <string name="reminder_details_medication_duration">Medication duration</string>
+    <string name="reminder_details_days">days</string>
+    <string-array name="item_take_time_spinner">
+        <item>Morning (9:00)</item>
+        <item>Day (14:00)</item>
+        <item>Night (19:00)</item>
+        <item>Choose time</item>
+    </string-array>
+    <plurals name="reminders_plurals_per_day">
+        <item quantity="zero">%1$d times a day</item>
+        <item quantity="one">Once a day</item>
+        <item quantity="two">2 times a day</item>
+        <item quantity="few">%1$d times a day</item>
+        <item quantity="many">%1$d times a day</item>
+        <item quantity="other">%1$d times a day</item>
+    </plurals>
+    <plurals name="reminders_plurals_days">
+        <item quantity="zero">%1$d days</item>
+        <item quantity="one">%1$d day</item>
+        <item quantity="two">%1$d days</item>
+        <item quantity="few">%1$d days</item>
+        <item quantity="many">%1$d days</item>
+        <item quantity="other">%1$d days</item>
+    </plurals>
     <plurals name="medicine_details_use_until_plurals_days">
         <item quantity="zero">(expired)</item>
         <item quantity="one">(%1$d more day)</item>
@@ -99,4 +141,15 @@
         <item>Scan barcode</item>
         <item>Search</item>
     </string-array>
+    <string name="action_intake_complete_label">Intake complete</string>
+    <string name="notifications_action_intake_complete">OK</string>
+    <string name="notifications_action_intake_skip">Skip</string>
+
+    <string name="notifications_title_new_intake">It\'s time to take %1$d %2$s of %3$s!</string>
+    <string name="notifications_title_no_medicines">You ran out of %1$s medication.</string>
+    <string name="notifications_title_medicine_will_end_soon">The %1$s medicine will run out soon.</string>
+    <string name="notifications_body_medicine_will_end_soon">There are %1$d more %2$s left.</string>
+
+
+
 </resources>

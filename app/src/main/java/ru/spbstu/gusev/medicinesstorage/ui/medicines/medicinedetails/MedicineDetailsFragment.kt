@@ -18,7 +18,7 @@ import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
 import ru.spbstu.gusev.medicinesstorage.databinding.DialogMedicineDetailsEditResidueBinding
 import ru.spbstu.gusev.medicinesstorage.databinding.FragmentMedicineDetailsBinding
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.models.ResidueDetails
-import ru.spbstu.gusev.medicinesstorage.utils.EventObserver
+import ru.spbstu.gusev.medicinesstorage.utils.livedata.EventObserver
 import java.util.*
 
 
@@ -63,7 +63,7 @@ class MedicineDetailsFragment : Fragment() {
                 .setHeaderBgColor(R.color.purple_500)
                 .setTextColors(R.color.black, R.color.black, R.color.white)
                 .setTexts("OK")
-                .buildMonthYearPickerDialog(2100, 2000, true) { year: Int, month: Int ->
+                .buildMonthYearPickerDialog(2100, 2000, false) { year: Int, month: Int ->
                     val calendar = Calendar.getInstance().apply { set(year, month - 1, 1) }
                     viewModel.medicineDetails.value?.let { medicineDetails ->
                         viewModel.medicineDetails.value =

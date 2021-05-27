@@ -1,4 +1,4 @@
-package ru.spbstu.gusev.gpstracker.data.network.wrapper
+package ru.spbstu.gusev.medicinesstorage.data.network.helpers
 
 sealed class ResultWrapper<out T> {
     data class Success<out T>(val value: T) : ResultWrapper<T>()

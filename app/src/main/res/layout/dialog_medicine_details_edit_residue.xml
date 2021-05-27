@@ -82,7 +82,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:singleLine="true"
-                android:text="@={viewmodel.residueDetails.residue}" />
+                android:text="@={viewmodel.residueDetails.residue}"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

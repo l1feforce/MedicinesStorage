@@ -1,21 +1,15 @@
 package ru.spbstu.gusev.medicinesstorage.ui.medicines
 
-import android.content.Context
-import android.content.pm.PermissionInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.spbstu.gusev.medicinesstorage.R
-import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
 import ru.spbstu.gusev.medicinesstorage.databinding.FragmentMedicinesBinding
 import ru.spbstu.gusev.medicinesstorage.extensions.getColorFromTheme
 import ru.spbstu.gusev.medicinesstorage.extensions.hideKeyboard
@@ -23,7 +17,9 @@ import ru.spbstu.gusev.medicinesstorage.extensions.setIconsColor
 import ru.spbstu.gusev.medicinesstorage.extensions.setupSearch
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.adapters.MedicinesAdapter
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.medicinedetails.MEDICINE_DETAILS_KEY
-import ru.spbstu.gusev.medicinesstorage.utils.EventObserver
+import ru.spbstu.gusev.medicinesstorage.utils.NotificationsUtil
+import ru.spbstu.gusev.medicinesstorage.utils.NotificationsUtil.Companion.showNotification
+import ru.spbstu.gusev.medicinesstorage.utils.livedata.EventObserver
 import ru.spbstu.gusev.medicinesstorage.utils.PermissionsUtil
 
 class MedicinesFragment : Fragment() {
@@ -104,7 +100,7 @@ class MedicinesFragment : Fragment() {
                 return true
             }
         })
-        val color = getColorFromTheme(R.attr.colorOnPrimary)
+        val color = getColorFromTheme(R.attr.colorOnBackground)
         menu.setIconsColor(color)
         menu.setupSearch(this)
         super.onCreateOptionsMenu(menu, inflater)

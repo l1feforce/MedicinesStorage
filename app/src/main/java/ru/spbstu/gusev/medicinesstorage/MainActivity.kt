@@ -55,6 +55,14 @@ class MainActivity : AppCompatActivity() {
                     bottomNavigationView.visibility = View.GONE
                     toolbar.visibility = View.GONE
                 }
+                R.id.navigation_reminder_details -> {
+                    bottomNavigationView.visibility = View.GONE
+                    toolbar.visibility = View.VISIBLE
+                }
+                R.id.navigation_adding_new_search -> {
+                    bottomNavigationView.visibility = View.GONE
+                    toolbar.visibility = View.VISIBLE
+                }
                 else -> {
                     bottomNavigationView.visibility = View.VISIBLE
                     toolbar.visibility = View.VISIBLE

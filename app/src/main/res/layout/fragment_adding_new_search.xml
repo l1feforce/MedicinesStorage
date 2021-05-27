@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="ru.spbstu.gusev.medicinesstorage.ui.reminders.addingnewsearch.AddingNewSearchViewModel" />
+
+        <variable
+            name="medicinesAdapter"
+            type="ru.spbstu.gusev.medicinesstorage.ui.medicines.adapters.MedicinesAdapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.reminders.addingnewsearch.AddingNewSearchFragment">
+
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewmodel.isEmptyRecyclerView() ? View.VISIBLE : View.GONE}"
+            app:constraint_referenced_ids="medicines_search_empty_list_img,medicines_search_empty_list_title"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/medicines_search_empty_list_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:alpha="0.7"
+            app:layout_constraintBottom_toTopOf="@+id/medicines_search_empty_list_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/medicines_search_edit_text"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:srcCompat="@drawable/ic_not_found_png"
+            app:tint="?attr/colorOnBackground" />
+
+        <TextView
+            android:id="@+id/medicines_search_empty_list_title"
+            style="@style/Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0.64"
+            android:text="@string/medicines_search_empty_title"
+            android:textColor="?attr/colorOnBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/medicines_search_empty_list_img"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/medicines_search_edit_text"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/medicines_search_search"
+            app:endIconDrawable="@drawable/ic_search_alpha64_24dp"
+            app:endIconMode="custom"
+            app:endIconTint="?attr/colorOnBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:singleLine="true"
+                android:text="@={viewmodel.searchQuery}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/medicines_search_recycler_view"
+            onItemClickListener="@{viewmodel::openMedicine}"
+            setAdapter="@{medicinesAdapter}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/medicines_search_edit_text"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_medicine" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
