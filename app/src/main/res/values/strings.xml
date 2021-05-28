@@ -21,7 +21,7 @@
     <string name="medicines_empty_title">Here will be your medicines</string>
     <string name="menu_edit_title">Edit</string>
     <string name="medicines_search_search">Search</string>
-    <string name="medicines_search_label">Medicines search</string>
+    <string name="medicines_search_label">Choose medicine</string>
     <string name="item_medicines_search_medicine_image">Medicine image</string>
     <string name="dialog_medicine_details_edit_residue_naming">Dosage form</string>
     <string name="dialog_medicine_details_edit_residue_volume">Quantity</string>
@@ -141,7 +141,7 @@
         <item>Scan barcode</item>
         <item>Search</item>
     </string-array>
-    <string name="notifications_action_intake_complete" translatable="false">OK</string>
+    <string name="notifications_action_intake_complete">Take</string>
     <string name="notifications_action_intake_skip">Skip</string>
 
     <string name="notifications_title_new_intake">It\'s time to take %1$d %2$s of %3$s!</string>

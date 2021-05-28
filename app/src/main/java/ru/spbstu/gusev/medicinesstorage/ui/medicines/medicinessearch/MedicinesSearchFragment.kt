@@ -1,13 +1,13 @@
 package ru.spbstu.gusev.medicinesstorage.ui.medicines.medicinessearch
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.spbstu.gusev.medicinesstorage.R
@@ -15,10 +15,11 @@ import ru.spbstu.gusev.medicinesstorage.databinding.FragmentMedicinesSearchBindi
 import ru.spbstu.gusev.medicinesstorage.extensions.hideKeyboard
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.adapters.MedicinesSearchAdapter
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.medicinedetails.MEDICINE_DETAILS_KEY
+import ru.spbstu.gusev.medicinesstorage.utils.PermissionsUtil
 import ru.spbstu.gusev.medicinesstorage.utils.livedata.EventObserver
 
 class MedicinesSearchFragment : Fragment() {
-    companion object{
+    companion object {
         const val BARCODE_KEY = "barcode_key"
     }
 
@@ -51,7 +52,7 @@ class MedicinesSearchFragment : Fragment() {
             medicinesSearchAdapter.submitList(medicinesList)
         })
         viewModel.searchQuery.observe(viewLifecycleOwner, { searchQuery ->
-            if(!searchQuery.isNullOrBlank() && searchQuery != viewModel.oldQuery) {
+            if (!searchQuery.isNullOrBlank() && searchQuery != viewModel.oldQuery) {
                 viewModel.performMedicinesSearch(searchQuery)
                 viewModel.oldQuery = searchQuery
             }
@@ -67,9 +68,18 @@ class MedicinesSearchFragment : Fragment() {
             findNavController().navigate(R.id.navigation_medicine_details, bundle)
         })
         viewModel.barcode.observe(viewLifecycleOwner, { barcode ->
-            if(!barcode.isNullOrBlank()) {
+            if (!barcode.isNullOrBlank()) {
                 viewModel.performBarcodeSearch(barcode)
                 arguments?.putString(BARCODE_KEY, "")
+            }
+        })
+        viewModel.onBarcodeClickEvent.observe(viewLifecycleOwner, EventObserver {
+            PermissionsUtil.requestPermission(
+                requireContext(),
+                PermissionsUtil.cameraPermission,
+                ""
+            ) {
+                findNavController().navigate(R.id.navigation_scanner)
             }
         })
     }

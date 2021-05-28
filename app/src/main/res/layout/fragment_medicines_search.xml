@@ -77,9 +77,10 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:hint="@string/medicines_search_search"
-            app:endIconDrawable="@drawable/ic_search_alpha64_24dp"
+            app:endIconDrawable="@drawable/ic_barcode_svg"
             app:endIconMode="custom"
             app:endIconTint="?attr/colorOnBackground"
+            setEndIconClickListener="@{viewmodel.onBarcodeClick}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">

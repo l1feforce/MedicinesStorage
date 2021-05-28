@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.*
-import ru.spbstu.gusev.medicinesstorage.data.network.helpers.ResultWrapper
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
+import ru.spbstu.gusev.medicinesstorage.data.network.helpers.ResultWrapper
 import ru.spbstu.gusev.medicinesstorage.data.network.medicinesdatabase.MedicinesNetworkRepository
 import ru.spbstu.gusev.medicinesstorage.utils.livedata.Event
 
@@ -41,9 +43,13 @@ class MedicinesSearchViewModel(val searchMedicinesRepository: MedicinesNetworkRe
     }
 
     val openMedicineEvent = MutableLiveData<Event<Medicine>>()
-
     fun openMedicine(medicine: Medicine) {
         openMedicineEvent.value = Event(medicine)
+    }
+
+    val onBarcodeClickEvent = MutableLiveData<Event<Unit>>()
+    fun onBarcodeClick() {
+        onBarcodeClickEvent.value = Event(Unit)
     }
 
     fun performBarcodeSearch(barcode: String) {

@@ -1,13 +1,14 @@
 package ru.spbstu.gusev.medicinesstorage.ui.medicines.scanner
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
@@ -60,7 +61,10 @@ class ScannerFragment : Fragment() {
 
         viewModel.barcode.observe(viewLifecycleOwner, EventObserver {
             val bundle = bundleOf(MedicinesSearchFragment.BARCODE_KEY to it)
-            findNavController().navigate(R.id.navigation_medicines_search, bundle)
+            val navOptions = NavOptions.Builder().apply {
+                setPopUpTo(R.id.navigation_medicines_search, true)
+            }.build()
+            findNavController().navigate(R.id.navigation_medicines_search, bundle, navOptions)
         })
     }
 

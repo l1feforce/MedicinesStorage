@@ -36,6 +36,7 @@ class HaveToTakeRemindersAdapter : ListAdapter<TriggeredReminder, HaveToTakeRemi
     override fun onBindViewHolder(holder: MedicineViewHolder, position: Int) {
         val currentItem = getItem(position)
         holder.binding.reminderItem = currentItem
+        holder.binding.itemReminderTitleTv.isSelected = true
         onItemClickListener?.let { action->
             holder.binding.root.setOnClickListener {
                 action.invoke(currentItem)
