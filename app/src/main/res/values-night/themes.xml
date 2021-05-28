@@ -2,29 +2,152 @@
     <!-- Base application theme. -->
     <style name="Theme.MedicinesStorage" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Customize your theme here. -->
         <!-- Other colors. -->
-        <item name="background">@color/white<!--@color/white--></item>
-        <item name="colorSurface">@color/white<!--@color/white--></item>
+        <item name="background">@color/black70</item>
+        <item name="colorSurface">@color/black70</item>
         <item name="colorError">@color/red_error</item>
-        <item name="colorOnBackground">@color/black</item>
-        <item name="colorOnSurface">@color/black</item>
+        <item name="colorOnBackground">@color/white70</item>
+        <item name="colorOnSurface">@color/white70</item>
         <item name="colorOnError">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/background</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">false</item>
         <!-- Customize your theme here. -->
         <item name="actionBarSize">46dp</item>
         <item name="colorControlNormal">@color/white70</item>
         <item name="android:colorControlNormal">@color/white70</item>
         <item name="android:textColorHint">@color/white70</item>
         <item name="searchViewStyle">@style/MySearchViewStyle</item>
+        <item name="actionOverflowButtonStyle">@style/CustomOverflowButton</item>
     </style>
+
+    <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="searchHintIcon">@null</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
+    </style>
+
+    <!-- Shapes. -->
+    <style name="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerRadius">5dp</item>
+    </style>
+
+    <!-- Toolbar. -->
+    <style name="Widget.MaterialComponents.Toolbar.Primary.CustomToolbar">
+        <item name="colorControlNormal">?attr/colorOnBackground</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:background">?attr/background</item>
+        <item name="elevation">8dp</item>
+        <item name="title">@string/app_name</item>
+        <item name="titleTextColor">?attr/colorOnBackground</item>
+        <item name="titleTextAppearance">@style/Subtitle1</item>
+        <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Toolbar.Primary.Custom
+        </item>
+    </style>
+
+    <style name="CustomOverflowButton" parent="Base.Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">?attr/colorOnBackground</item>
+    </style>
+
+    <style name="ThemeOverlay.MaterialComponents.Toolbar.Primary.Custom">
+        <item name="colorControlNormal">?attr/colorOnBackground</item>
+        <item name="actionMenuTextColor">?attr/colorOnBackground</item>
+    </style>
+
+    <!-- Bottom navigation bar. -->
+    <style name="Widget.MaterialComponents.BottomNavigationView.Colored.Custom">
+        <item name="enforceTextAppearance">true</item>
+        <item name="enforceMaterialTheme">true</item>
+        <item name="android:background">?attr/background</item>
+        <item name="itemIconTint">@color/bottom_nav_bar_icons_tint</item>
+        <item name="itemRippleColor">@color/bottom_nav_bar_ripple_color</item>
+        <item name="itemTextAppearanceInactive">?attr/textAppearanceCaption</item>
+        <item name="itemTextAppearanceActive">?attr/textAppearanceCaption</item>
+        <item name="itemTextColor">@color/bottom_nav_bar_icons_tint</item>
+    </style>
+
+    <!-- Text styles. -->
+    <style name="Headline1">
+        <item name="android:textSize">96sp</item>
+        <item name="font">@font/roboto_light</item>
+    </style>
+
+    <style name="Headline2">
+        <item name="android:textSize">60sp</item>
+        <item name="font">@font/roboto_light</item>
+    </style>
+
+    <style name="Headline3">
+        <item name="android:textSize">48sp</item>
+        <item name="font">@font/roboto_regular</item>
+    </style>
+
+    <style name="Headline4">
+        <item name="android:textSize">34sp</item>
+        <item name="font">@font/roboto_regular</item>
+    </style>
+
+    <style name="Headline5">
+        <item name="android:textSize">24sp</item>
+        <item name="font">@font/roboto_regular</item>
+    </style>
+
+    <style name="Headline6">
+        <item name="android:textSize">20sp</item>
+        <item name="font">@font/roboto_medium</item>
+    </style>
+
+    <style name="Subtitle1">
+        <item name="android:textSize">16sp</item>
+        <item name="font">@font/roboto_regular</item>
+    </style>
+
+    <style name="Subtitle2">
+        <item name="android:textSize">14sp</item>
+        <item name="font">@font/roboto_medium</item>
+    </style>
+
+    <style name="Body1">
+        <item name="android:textSize">16sp</item>
+        <item name="font">@font/roboto_regular</item>
+    </style>
+
+    <style name="Body2">
+        <item name="android:textSize">14sp</item>
+        <item name="font">@font/roboto_regular</item>
+        <item name="alpha">0.7</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:textSize">14sp</item>
+        <item name="font">@font/roboto_medium</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="font">@font/roboto_regular</item>
+    </style>
+
+    <style name="Overline">
+        <item name="android:textSize">10sp</item>
+        <item name="font">@font/roboto_regular</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:letterSpacing">0.15</item>
+    </style>
+
 </resources>

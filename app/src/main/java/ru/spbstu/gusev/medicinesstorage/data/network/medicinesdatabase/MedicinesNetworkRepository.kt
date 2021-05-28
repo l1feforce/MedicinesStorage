@@ -1,7 +1,7 @@
 package ru.spbstu.gusev.medicinesstorage.data.network.medicinesdatabase
 
-import ru.spbstu.gusev.medicinesstorage.data.network.helpers.ResultWrapper
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
+import ru.spbstu.gusev.medicinesstorage.data.network.helpers.ResultWrapper
 import ru.spbstu.gusev.medicinesstorage.data.network.helpers.safeApiCall
 
 class MedicinesNetworkRepository(val medicinesDatabaseApi: MedicinesDatabaseApi) {
@@ -11,4 +11,8 @@ class MedicinesNetworkRepository(val medicinesDatabaseApi: MedicinesDatabaseApi)
 
     suspend fun getMedicinesByBarcode(query: String): ResultWrapper<List<Medicine>> =
         safeApiCall { medicinesDatabaseApi.getMedicinesByBarcode(query) }
+
+    suspend fun wakeUpServer() {
+        safeApiCall {  medicinesDatabaseApi.wakeUpServer() }
+    }
 }

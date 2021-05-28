@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Моя аптечка</string>
+    <string name="title_reminders">Напоминания</string>
+    <string name="title_medicines">Лекарства</string>
+    <string name="title_account">Аккаунт</string>
+    <string name="medicines_extended_fab_label">Добавить</string>
+    <string name="medicines_medicines_title">Лекарства</string>
+    <string name="medicines_expired_title">Просроченные</string>
+    <string name="medicine_details_residue">Остаток в упаковке</string>
+    <string name="medicine_details_open_instruction">Открыть инструкцию</string>
+    <string name="medicine_details_use_until">Годно до</string>
+    <string name="medicine_details_store_after_open">Хранить после вскрытия</string>
+    <string name="medicine_details_active_ingredient">Действующее вещество</string>
+    <string name="medicine_details_pharmacological_group">Фармокологическая группа</string>
+    <string name="medicine_details_label">Информация о лекарстве</string>
+    <string name="medicine_details_cancel">Отмена</string>
+    <string name="medicine_details_save">Сохранить</string>
+    <string name="menu_search_title">Поиск</string>
+    <string name="search_hint">Поиск</string>
+    <string name="medicines_empty_title">Здесь будут ваши лекарства</string>
+    <string name="menu_edit_title">Редактировать</string>
+    <string name="medicines_search_search">Поиск</string>
+    <string name="medicines_search_label">Искать в лекарствах</string>
+    <string name="item_medicines_search_medicine_image">Изображение лекарства</string>
+    <string name="dialog_medicine_details_edit_residue_naming">Лекарственная форма</string>
+    <string name="dialog_medicine_details_edit_residue_volume">Количество</string>
+    <string name="dialog_medicine_details_edit_residue_volume_error">Неправильный формат</string>
+    <string name="dialog_medicine_details_edit_residue_units">Единицы измерения</string>
+    <string name="dialog_medicine_details_edit_residue_packages_amount">Упаковок</string>
+    <string name="dialog_medicine_details_edit_residue_residue">Остаток</string>
+    <string name="dialog_medicine_details_edit_residue_cancel">Отмена</string>
+    <string name="dialog_medicine_details_date_picker_title">Укажите срок годности</string>
+    <string name="menu_delete_title">Удалить</string>
+    <string name="medicine_details_delete_dialog_message">Вы уверены что хотите удалить лекарство?</string>
+    <string name="medicine_details_delete_dialog_title">Предупреждение</string>
+    <string name="scanner_label">Сканер</string>
+    <string name="medicines_search_empty_title">Ничего не найдено</string>
+    <string name="item_reminder_skip_btn">Пропустить</string>
+    <string name="reminders_reminders_title">Напоминания</string>
+    <string name="reminders_have_to_take_title">Нужно принять</string>
+    <string name="reminders_empty_title">Здесь будут ваши напоминания</string>
+    <string name="menu_account_title">Аккаунт</string>
+    <string name="adding_new_search_label">Искать в лекарствах</string>
+    <string name="reminder_details_dosage_form">Дозировка</string>
+    <string name="reminder_details_dose">Сколько за раз</string>
+    <string name="reminder_details_medication_schedule">Расписание приема</string>
+    <string name="reminder_details_duration">Длительность приема</string>
+    <string name="item_take_time_title">%d прием</string>
+    <string name="item_take_time_spinner_morning">Утро (8:00)</string>
+    <string name="item_take_time_spinner_day">День (14:00)</string>
+    <string name="item_take_time_spinner_night">Вечер (19:00)</string>
+    <string name="item_take_time_spinner_custom">Выбрать время</string>
+    <string name="reminder_details_intakes_amount">Сколько раз в день</string>
+    <string name="reminder_details_delete_dialog_message">Вы уверены что хотите удалить напоминание?</string>
+    <string name="reminder_details_label">Информация о напоминании</string>
+    <string name="reminder_details_medication_duration">Длительность приема</string>
+    <string name="reminder_details_days">дней</string>
+    <string name="notifications_action_intake_skip">Пропустить</string>
+    <string name="notifications_title_new_intake">Время принять %1$d %2$s %3$s!</string>
+    <string name="notifications_title_no_medicines">У вас кончилось лекарство %1$s.</string>
+    <string name="notifications_title_medicine_will_end_soon">Лекарство %1$s скоро закончится.</string>
+    <string name="notifications_body_medicine_will_end_soon">Еще осталось %1$d %2$s.</string>
+    <string name="reminder_details_dosage_help_message">Укажите количество лекарства, которое вы принимаете за раз.</string>
+    <string name="reminder_details_field_error">Введите значение</string>
+
+    <string-array name="item_take_time_spinner">
+        <item>Утро (9:00)</item>
+        <item>День (14:00)</item>
+        <item>Вечер (19:00)</item>
+        <item>Выбрать время</item>
+    </string-array>
+
+    <plurals name="reminders_plurals_per_day">
+        <item quantity="one">%1$d раз в день</item>
+        <item quantity="few">%1$d раза в день</item>
+        <item quantity="many">%1$d раз в день</item>
+        <item quantity="other">%1$d раз в день</item>
+    </plurals>
+    <plurals name="reminders_plurals_days">
+        <item quantity="one">%1$d день</item>
+        <item quantity="few">%1$d дня</item>
+        <item quantity="many">%1$d дней</item>
+        <item quantity="other">%1$d дней</item>
+    </plurals>
+    <plurals name="medicine_details_use_until_plurals_days">
+        <item quantity="zero">(истекло)</item>
+        <item quantity="one">(еще %1$d день)</item>
+        <item quantity="few">(еще %1$d дня)</item>
+        <item quantity="many">(еще %1$d дней)</item>
+        <item quantity="other">(еще %1$d дней)</item>
+    </plurals>
+    <plurals name="medicine_details_use_until_plurals_months">
+        <item quantity="one">(еще %1$d месяц)</item>
+        <item quantity="few">(еще %1$d месяца)</item>
+        <item quantity="many">(еще %1$d месяцев)</item>
+        <item quantity="other">(еще %1$d месяцев)</item>
+    </plurals>
+    <plurals name="medicine_details_use_until_plurals_years">
+        <item quantity="one">(еще %1$d год)</item>
+        <item quantity="few">(еще %1$d года)</item>
+        <item quantity="many">(еще %1$d лет)</item>
+        <item quantity="other">(еще %1$d лет)</item>
+    </plurals>
+
+    <plurals name="medicine_details_use_until_expired_plurals_days">
+        <item quantity="zero">(истекло)</item>
+        <item quantity="one">(%1$d день назад)</item>
+        <item quantity="few">(%1$d дня назад)</item>
+        <item quantity="many">(%1$d дней назад)</item>
+        <item quantity="other">(%1$d дней назад)</item>
+    </plurals>
+    <plurals name="medicine_details_use_until_expired_plurals_months">
+        <item quantity="one">(%1$d месяц назад)</item>
+        <item quantity="few">(%1$d месяца назад)</item>
+        <item quantity="many">(%1$d месяцев назад)</item>
+        <item quantity="other">(%1$d месяцев назад)</item>
+    </plurals>
+    <plurals name="medicine_details_use_until_expired_plurals_years">
+        <item quantity="one">(%1$d год назад)</item>
+        <item quantity="few">(%1$d года назад)</item>
+        <item quantity="many">(%1$d лет назад)</item>
+        <item quantity="other">(%1$d лет назад)</item>
+    </plurals>
+
+    <plurals name="medicine_details_store_after_open_plurals">
+        <item quantity="one">Хранить %1$d день</item>
+        <item quantity="few">Хранить %1$d дня</item>
+        <item quantity="many">Хранить %1$d дней</item>
+        <item quantity="other">Хранить %1$d дней</item>
+    </plurals>
+
+    <string-array name="medicines_add_type_array">
+        <item>Сканировать штрих-код</item>
+        <item>Поиск</item>
+    </string-array>
+
+    <string-array name="medicines_dosage_forms_array">
+        <item>шт.</item>
+        <item>доз.</item>
+        <item>мл.</item>
+        <item>капс.</item>
+    </string-array>
+</resources>

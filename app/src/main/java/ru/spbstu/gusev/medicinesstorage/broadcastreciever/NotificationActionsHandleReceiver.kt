@@ -9,7 +9,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 import ru.spbstu.gusev.medicinesstorage.data.local.remiders.RemindersRepository
-import ru.spbstu.gusev.medicinesstorage.ui.reminders.notificationactions.ActionIntakeCompleteFragment
 import ru.spbstu.gusev.medicinesstorage.utils.NotificationsUtil.Companion.showNotification
 
 class NotificationActionsHandleReceiver : BroadcastReceiver() {
@@ -28,9 +27,9 @@ class NotificationActionsHandleReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         intent.getBundleExtra(EXTRA_BUNDLE_KEY)?.let {
-            reminderId = it.getInt(ActionIntakeCompleteFragment.REMINDER_ID)
-            isComplete = it.getBoolean(ActionIntakeCompleteFragment.IS_COMPLETE)
-            triggeredReminderId = it.getInt(ActionIntakeCompleteFragment.TRIGGERED_REMINDER_ID)
+            reminderId = it.getInt(REMINDER_ID)
+            isComplete = it.getBoolean(IS_COMPLETE)
+            triggeredReminderId = it.getInt(TRIGGERED_REMINDER_ID)
         }
 
         when {

@@ -8,6 +8,7 @@
             name="viewmodel"
             type="ru.spbstu.gusev.medicinesstorage.ui.medicines.medicinedetails.MedicineDetailsViewModel" />
 
+        <import type="ru.spbstu.gusev.medicinesstorage.R" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +17,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/dialog_medicine_details_edit_residue_naming_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -27,11 +28,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <!--<com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
                 android:inputType="text"
+                android:singleLine="true"
+                android:text="@={viewmodel.residueDetails.unitsOfMeasure}" />-->
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adapterItems="@{R.array.medicines_dosage_forms_array}"
+                android:imeOptions="actionNext"
+                android:inputType="textAutoComplete"
                 android:singleLine="true"
                 android:text="@={viewmodel.residueDetails.unitsOfMeasure}" />
 
@@ -70,7 +79,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:hint="@string/dialog_medicine_details_edit_residue_residue"
+            android:hint="@string/medicine_details_residue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dialog_medicine_details_edit_residue_volume_input_layout"
@@ -82,7 +91,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:singleLine="true"
-                android:text="@={viewmodel.residueDetails.residue}"/>
+                android:text="@={viewmodel.residueDetails.residue}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

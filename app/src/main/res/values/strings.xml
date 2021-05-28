@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">Medicines storage</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main" translatable="false">MainActivity</string>
     <string name="title_reminders">Reminders</string>
     <string name="title_medicines">Medicines</string>
     <string name="title_account">Account</string>
     <string name="medicines_extended_fab_label">Add</string>
     <string name="medicines_medicines_title">Medicines</string>
     <string name="medicines_expired_title">Expired</string>
-    <string name="medicine_details_residue">Residue</string>
+    <string name="medicine_details_residue">Residue in the package</string>
     <string name="medicine_details_open_instruction">Open instruction</string>
     <string name="medicine_details_use_until">Use until</string>
     <string name="medicine_details_store_after_open">Store after open</string>
@@ -23,19 +23,19 @@
     <string name="medicines_search_search">Search</string>
     <string name="medicines_search_label">Medicines search</string>
     <string name="item_medicines_search_medicine_image">Medicine image</string>
-    <string name="dialog_medicine_details_edit_residue_naming">Naming</string>
-    <string name="dialog_medicine_details_edit_residue_volume">Volume</string>
+    <string name="dialog_medicine_details_edit_residue_naming">Dosage form</string>
+    <string name="dialog_medicine_details_edit_residue_volume">Quantity</string>
     <string name="dialog_medicine_details_edit_residue_volume_error">Wrong data format</string>
     <string name="dialog_medicine_details_edit_residue_units">Unit</string>
     <string name="dialog_medicine_details_edit_residue_packages_amount">Packages</string>
     <string name="dialog_medicine_details_edit_residue_residue">Residue</string>
-    <string name="dialog_medicine_details_edit_residue_ok">OK</string>
+    <string name="dialog_medicine_details_edit_residue_ok" translatable="false">OK</string>
     <string name="dialog_medicine_details_edit_residue_cancel">Cancel</string>
     <string name="dialog_medicine_details_date_picker_title">Select an expiration date</string>
     <string name="menu_delete_title">Delete</string>
     <string name="medicine_details_delete_dialog_message">Are you sure you want to remove the medicine?</string>
     <string name="medicine_details_delete_dialog_title">Warning</string>
-    <string name="scanner_label">Scaner</string>
+    <string name="scanner_label">Scanner</string>
     <string name="medicines_search_empty_title">Nothing is found</string>
     <string name="item_reminder_skip_btn">Skip</string>
     <string name="reminders_reminders_title">Reminders</string>
@@ -43,8 +43,8 @@
     <string name="reminders_empty_title">Here will be your reminders</string>
     <string name="menu_account_title">Account</string>
     <string name="adding_new_search_label">Add new reminder</string>
-    <string name="reminder_details_dosage_form">Dosage form</string>
-    <string name="reminder_details_dose">Dose</string>
+    <string name="reminder_details_dosage_form">Dosage</string>
+    <string name="reminder_details_dose">How many at a time</string>
     <string name="reminder_details_medication_schedule">Medication schedule</string>
     <string name="reminder_details_duration">Reception duration</string>
     <string name="item_take_time_title">%d intake</string>
@@ -141,15 +141,19 @@
         <item>Scan barcode</item>
         <item>Search</item>
     </string-array>
-    <string name="action_intake_complete_label">Intake complete</string>
-    <string name="notifications_action_intake_complete">OK</string>
+    <string name="notifications_action_intake_complete" translatable="false">OK</string>
     <string name="notifications_action_intake_skip">Skip</string>
 
     <string name="notifications_title_new_intake">It\'s time to take %1$d %2$s of %3$s!</string>
     <string name="notifications_title_no_medicines">You ran out of %1$s medication.</string>
     <string name="notifications_title_medicine_will_end_soon">The %1$s medicine will run out soon.</string>
     <string name="notifications_body_medicine_will_end_soon">There are %1$d more %2$s left.</string>
+    <string name="reminder_details_dosage_help_message">Specify the number of doses of medication you take at a time.</string>
+    <string name="reminder_details_field_error">Введите значение</string>
 
-
+    <string-array name="medicines_dosage_forms_array">
+        <item>pcs.</item>
+        <item>pills</item>
+    </string-array>
 
 </resources>

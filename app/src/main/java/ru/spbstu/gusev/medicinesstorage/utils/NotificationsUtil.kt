@@ -13,7 +13,6 @@ import androidx.navigation.NavDeepLinkBuilder
 import ru.spbstu.gusev.medicinesstorage.MainActivity
 import ru.spbstu.gusev.medicinesstorage.R
 import ru.spbstu.gusev.medicinesstorage.broadcastreciever.NotificationActionsHandleReceiver
-import ru.spbstu.gusev.medicinesstorage.ui.reminders.notificationactions.ActionIntakeCompleteFragment
 import kotlin.random.Random
 
 class NotificationsUtil {

@@ -3,8 +3,9 @@ package ru.spbstu.gusev.medicinesstorage
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.*
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
+import androidx.lifecycle.coroutineScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
@@ -13,13 +14,19 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
+import ru.spbstu.gusev.medicinesstorage.data.network.medicinesdatabase.MedicinesNetworkRepository
 
 
 class MainActivity : AppCompatActivity() {
 
+    val medicinesNetworkRepository: MedicinesNetworkRepository by inject()
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         setDefaultNightMode(MODE_NIGHT_NO)
+        //delegate.applyDayNight()
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -35,6 +42,9 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(this, navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         setupBottomNavBar()
+        lifecycle.coroutineScope.launch {
+            medicinesNetworkRepository.wakeUpServer()
+        }
     }
 
     private fun setupBottomNavBar() {

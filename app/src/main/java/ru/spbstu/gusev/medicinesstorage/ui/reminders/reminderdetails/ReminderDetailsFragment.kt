@@ -1,9 +1,9 @@
 package ru.spbstu.gusev.medicinesstorage.ui.reminders.reminderdetails
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
@@ -11,15 +11,13 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
-import kotlinx.coroutines.runBlocking
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.spbstu.gusev.medicinesstorage.R
-import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
 import ru.spbstu.gusev.medicinesstorage.databinding.FragmentReminderDetailsBinding
+import ru.spbstu.gusev.medicinesstorage.extensions.showSnackbar
 import ru.spbstu.gusev.medicinesstorage.models.Reminder
-import ru.spbstu.gusev.medicinesstorage.models.Time
-import ru.spbstu.gusev.medicinesstorage.ui.medicines.medicinedetails.MEDICINE_DETAILS_KEY
 import ru.spbstu.gusev.medicinesstorage.utils.livedata.EventObserver
+
 
 class ReminderDetailsFragment : Fragment() {
     companion object {
@@ -47,6 +45,7 @@ class ReminderDetailsFragment : Fragment() {
             viewModel.reminderDetails.value = it.toObservable()
         }
 
+        binding.executePendingBindings()
         return binding.root
     }
 
@@ -54,9 +53,12 @@ class ReminderDetailsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         viewModel.onSaveEvent.observe(viewLifecycleOwner, EventObserver {
-            val navOptions =
-                NavOptions.Builder().setPopUpTo(R.id.navigation_reminders, true).build()
-            findNavController().navigate(R.id.navigation_reminders, null, navOptions)
+            if (isFieldsValid()) {
+                viewModel.performSave()
+                val navOptions =
+                    NavOptions.Builder().setPopUpTo(R.id.navigation_reminders, true).build()
+                findNavController().navigate(R.id.navigation_reminders, null, navOptions)
+            }
         })
         viewModel.onCancelEvent.observe(viewLifecycleOwner, EventObserver {
             val navOptions =
@@ -66,6 +68,33 @@ class ReminderDetailsFragment : Fragment() {
         viewModel.reminderDetails.value?.intakes?.observe(viewLifecycleOwner, {
             Log.d("test", "onActivityCreated: newIntakes: $it")
         })
+        viewModel.onDoseHelpClickedEvent.observe(viewLifecycleOwner, EventObserver {
+            showSnackbar(
+                binding.reminderDetailsDoseInput,
+                R.string.reminder_details_dosage_help_message
+            )
+        })
+    }
+
+    private fun isFieldsValid(): Boolean {
+        var result = true
+        if (binding.reminderDetailsDoseInput.editText?.text.toString().isEmpty()) {
+            binding.reminderDetailsDoseInput.error = resources.getString(R.string.reminder_details_field_error)
+            binding.reminderDetailsDoseInput.editText?.addTextChangedListener { binding.reminderDetailsDoseInput.error = "" }
+            result = false
+        }
+        if (binding.reminderDetailsIntakesAmountInput.editText?.text.toString().isEmpty()) {
+            binding.reminderDetailsIntakesAmountInput.error = resources.getString(R.string.reminder_details_field_error)
+            binding.reminderDetailsIntakesAmountInput.editText?.addTextChangedListener { binding.reminderDetailsIntakesAmountInput.error = "" }
+            result = false
+        }
+        if (binding.reminderDetailsDurationInput.editText?.text.toString().isEmpty()) {
+            binding.reminderDetailsDurationInput.error = resources.getString(R.string.reminder_details_field_error)
+            binding.reminderDetailsDurationInput.editText?.addTextChangedListener { binding.reminderDetailsDurationInput.error = "" }
+            result = false
+        }
+        binding.root.clearFocus()
+        return result
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

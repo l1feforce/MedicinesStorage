@@ -52,10 +52,4 @@
         android:name="ru.spbstu.gusev.medicinesstorage.ui.reminders.reminderdetails.ReminderDetailsFragment"
         android:label="@string/reminder_details_label"
         tools:layout="@layout/fragment_reminder_details"/>
-
-    <fragment
-        android:id="@+id/navigation_action_intake_complete"
-        android:name="ru.spbstu.gusev.medicinesstorage.ui.reminders.notificationactions.ActionIntakeCompleteFragment"
-        android:label="@string/action_intake_complete_label"
-        />
 </navigation>

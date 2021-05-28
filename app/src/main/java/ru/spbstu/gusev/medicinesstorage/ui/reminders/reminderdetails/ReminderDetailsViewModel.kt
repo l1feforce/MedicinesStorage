@@ -19,6 +19,10 @@ class ReminderDetailsViewModel(
 
     val onSaveEvent = MutableLiveData<Event<Unit>>()
     fun onSave() {
+        onSaveEvent.value = Event(Unit)
+    }
+
+    fun performSave() {
         GlobalScope.launch {
             reminderDetails.value?.toReminder()?.let { reminder ->
                 Log.d("test", "onSave: reminder: $reminder")
@@ -26,7 +30,6 @@ class ReminderDetailsViewModel(
                 remindersRepository.startReminder(reminder.copy(isStarted = true))
             }
         }
-        onSaveEvent.value = Event(Unit)
     }
 
     val onCancelEvent = MutableLiveData<Event<Unit>>()
@@ -40,5 +43,10 @@ class ReminderDetailsViewModel(
                 remindersRepository.removeReminder(reminder)
             }
         }
+    }
+
+    val onDoseHelpClickedEvent = MutableLiveData<Event<Unit>>()
+    fun onDoseHelpClicked() {
+        onDoseHelpClickedEvent.value = Event(Unit)
     }
 }

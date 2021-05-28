@@ -1,21 +1,18 @@
 package ru.spbstu.gusev.medicinesstorage.ui.reminders.addingnewsearch
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.spbstu.gusev.medicinesstorage.R
 import ru.spbstu.gusev.medicinesstorage.databinding.FragmentAddingNewSearchBinding
 import ru.spbstu.gusev.medicinesstorage.models.Reminder
-import ru.spbstu.gusev.medicinesstorage.models.Time
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.adapters.MedicinesAdapter
-import ru.spbstu.gusev.medicinesstorage.ui.medicines.adapters.MedicinesSearchAdapter
-import ru.spbstu.gusev.medicinesstorage.ui.medicines.medicinedetails.MEDICINE_DETAILS_KEY
 import ru.spbstu.gusev.medicinesstorage.ui.reminders.reminderdetails.ReminderDetailsFragment
 import ru.spbstu.gusev.medicinesstorage.utils.livedata.EventObserver
 

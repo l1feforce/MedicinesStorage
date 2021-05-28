@@ -11,7 +11,7 @@
 
         <import type="kotlin.jvm.functions.Function0" />
 
-        <import type="com.google.android.material.timepicker.MaterialTimePicker"/>
+        <import type="com.google.android.material.timepicker.MaterialTimePicker" />
 
         <variable
             name="onChooseTime"
@@ -93,43 +93,24 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/reminder_details_dosage_form_input"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="16dp"
-                    android:hint="@string/reminder_details_dosage_form"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/reminder_details_dosage_form_title_tv">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:inputType="text"
-                        android:singleLine="true"
-                        android:text="@={viewmodel.reminderDetails.dosageForm}" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/reminder_details_dose_input"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    setEndIconClickListener="@{viewmodel.onDoseHelpClicked}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
                     android:hint="@string/reminder_details_dose"
+                    app:endIconDrawable="@drawable/ic_help_outline_16px"
+                    app:endIconMode="custom"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/reminder_details_dosage_form_input"
+                    app:layout_constraintTop_toBottomOf="@+id/reminder_details_dosage_form_title_tv"
                     app:suffixText="@{viewmodel.reminderDetails.dosageForm}">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/reminder_details_dose_edittext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
@@ -168,6 +149,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/reminder_details_medication_schedule_title_tv">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/reminder_details_intakes_amount_edittext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
@@ -215,12 +197,14 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:hint="@string/reminder_details_duration"
+                    app:hintEnabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/reminder_details_duration_title_tv"
                     app:suffixText="@string/reminder_details_days">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/reminder_details_duration_edittext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
