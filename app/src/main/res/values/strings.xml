@@ -150,6 +150,12 @@
     <string name="notifications_body_medicine_will_end_soon">There are %1$d more %2$s left.</string>
     <string name="reminder_details_dosage_help_message">Specify the number of doses of medication you take at a time.</string>
     <string name="reminder_details_field_error">Введите значение</string>
+    <string name="account_medicines_amount_overline">Medicines amount</string>
+    <string name="account_reminders_amount_overline">Reminders amount</string>
+    <string name="account_sign_out_button">Sign out</string>
+    <string name="account_sign_in_title">Sign in</string>
+    <string name="account_sign_in_body">and store your medicines in the cloud.</string>
+    <string name="account_sign_in_button">Sign in</string>
 
     <string-array name="medicines_dosage_forms_array">
         <item>pcs.</item>

@@ -17,7 +17,6 @@ import ru.spbstu.gusev.medicinesstorage.utils.DateUtil
 import ru.spbstu.gusev.medicinesstorage.utils.DateUtil.Companion.toTime
 import ru.spbstu.gusev.medicinesstorage.utils.NotificationsUtil.Companion.showNotificationMedicineIsOver
 import ru.spbstu.gusev.medicinesstorage.utils.NotificationsUtil.Companion.showNotificationMedicineWillEndSoon
-import java.lang.StringBuilder
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -136,11 +135,15 @@ class RemindersRepository(
                     triggerTime = System.currentTimeMillis() + millisDelta
                 )
             )
-            Log.d("test", "addNotifications: triggeredReminderId: $triggeredReminderId \n reminderId: ${reminder.id}")
+            Log.d(
+                "test",
+                "addNotifications: triggeredReminderId: $triggeredReminderId \n reminderId: ${reminder.id}"
+            )
             val inputData = getInputData(
                 reminder,
                 currentIntake,
-                triggeredReminderId.firstOrNull()?.toInt() ?: 0
+                triggeredReminderId.firstOrNull()?.toInt() ?: 0,
+                i == reminder.duration * reminder.intakesAmount - 1
             )
             Log.d("test", "addNotifications: time: ${millisDelta / 1000 / 60 / 60}")
             val notificationWork =
@@ -153,7 +156,12 @@ class RemindersRepository(
         }
     }
 
-    private fun getInputData(reminder: Reminder, time: Time, triggeredReminderId: Int): Data =
+    private fun getInputData(
+        reminder: Reminder,
+        time: Time,
+        triggeredReminderId: Int,
+        isLast: Boolean
+    ): Data =
         Data.Builder()
             .putString(
                 NotifyWorker.TITLE_KEY, context.resources.getString(
@@ -165,7 +173,8 @@ class RemindersRepository(
             )
             .putInt(NotifyWorker.ID_KEY, reminder.id)
             .putString(NotifyWorker.BODY_KEY, time.toString())
-            .putInt(NotifyWorker.TRIGGERED_REMINDER_ID_KEY, triggeredReminderId).build()
+            .putInt(NotifyWorker.TRIGGERED_REMINDER_ID_KEY, triggeredReminderId)
+            .putBoolean(NotifyWorker.IS_LAST, isLast).build()
 
     suspend fun stopReminder(reminder: Reminder) {
         medicinesRepository.updateReminder(reminder)

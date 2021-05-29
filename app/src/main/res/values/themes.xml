@@ -44,6 +44,10 @@
         <item name="cornerRadius">5dp</item>
     </style>
 
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+
     <!-- Toolbar. -->
     <style name="Widget.MaterialComponents.Toolbar.Primary.CustomToolbar">
         <item name="colorControlNormal">?attr/colorOnBackground</item>

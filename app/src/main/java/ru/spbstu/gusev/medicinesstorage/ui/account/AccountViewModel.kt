@@ -1,13 +1,20 @@
 package ru.spbstu.gusev.medicinesstorage.ui.account
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.spbstu.gusev.medicinesstorage.models.AccountDetails
+import ru.spbstu.gusev.medicinesstorage.models.Statistics
 
 class AccountViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+    val accountDetails = MutableLiveData<AccountDetails>(AccountDetails("", "", Statistics(0, 0)))
+    val isAuthorized = MutableLiveData<Boolean>(false)
+
+    fun onSignIn() {
+        //TODO()
     }
-    val text: LiveData<String> = _text
+
+    fun onSignOut() {
+        //TODO()
+    }
 }

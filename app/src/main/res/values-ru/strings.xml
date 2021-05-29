@@ -142,4 +142,10 @@
         <item>капс.</item>
     </string-array>
     <string name="notifications_action_intake_complete">Принять</string>
+    <string name="account_medicines_amount_overline">Всего лекарств</string>
+    <string name="account_reminders_amount_overline">Всего напоминаний</string>
+    <string name="account_sign_in_title">Войдите в аккаунт</string>
+    <string name="account_sign_in_body">и храните все ваши лекарства в облаке.</string>
+    <string name="account_sign_in_button">Войти в аккаунт</string>
+    <string name="account_sign_out_button">Выйти из аккаунта</string>
 </resources>

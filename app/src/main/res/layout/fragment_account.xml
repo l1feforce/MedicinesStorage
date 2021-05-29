@@ -4,9 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewmodel"
             type="ru.spbstu.gusev.medicinesstorage.ui.account.AccountViewModel" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,18 +17,173 @@
         android:layout_height="match_parent"
         tools:context=".ui.account.AccountFragment">
 
-        <TextView
-            android:id="@+id/text_notifications"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/account_avatar_image"
+            imageUrl="@{viewmodel.accountDetails.image}"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_marginTop="32dp"
+            android:background="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            app:srcCompat="@drawable/ic_baseline_account_circle_24"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewmodel.isAuthorized() ? View.GONE : View.VISIBLE}"
+            app:constraint_referenced_ids="account_sign_in_title_tv,account_sign_in_button,account_sign_in_body_tv" />
+
+        <TextView
+            android:id="@+id/account_sign_in_title_tv"
+            style="@style/Headline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/account_sign_in_title"
+            android:textColor="?attr/colorOnBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/account_avatar_image" />
+
+        <TextView
+            android:id="@+id/account_sign_in_body_tv"
+            style="@style/Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/account_sign_in_body"
+            android:textColor="?attr/colorOnBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/account_sign_in_title_tv" />
+
+        <Button
+            android:id="@+id/account_sign_in_button"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:onClick="@{(view) -> viewmodel.onSignIn()}"
+            android:text="@string/account_sign_in_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/account_sign_in_body_tv" />
+
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewmodel.isAuthorized() ? View.VISIBLE : View.GONE}"
+            app:constraint_referenced_ids="account_sign_out_button,account_reminders_amount_overline_tv,account_medicines_amount_overline_tv,account_user_name_tv,view,account_medicines_amount_body_tv,account_reminders_amount_body_tv,view2"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/account_user_name_tv"
+            style="@style/Headline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@{viewmodel.accountDetails.userName}"
+            android:textColor="?attr/colorOnBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/account_avatar_image"
+            tools:text="@tools:sample/full_names" />
+
+        <TextView
+            android:id="@+id/account_medicines_amount_overline_tv"
+            style="@style/Overline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="4dp"
+            android:alpha="0.7"
+            android:text="@string/account_medicines_amount_overline"
+            android:textColor="?attr/colorOnBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/account_user_name_tv" />
+
+        <TextView
+            android:id="@+id/account_medicines_amount_body_tv"
+            style="@style/Subtitle1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="4dp"
+            android:text="@{String.valueOf(viewmodel.accountDetails.statistics.medicinesAmount)}"
+            android:textColor="?attr/colorOnBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/account_medicines_amount_overline_tv"
+            tools:text="59" />
+
+        <View
+            android:id="@+id/view"
+            style="@style/Divider"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/account_reminders_amount_overline_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/account_medicines_amount_body_tv" />
+
+        <TextView
+            android:id="@+id/account_reminders_amount_overline_tv"
+            style="@style/Overline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="4dp"
+            android:alpha="0.7"
+            android:text="@string/account_reminders_amount_overline"
+            android:textColor="?attr/colorOnBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/account_medicines_amount_body_tv" />
+
+        <TextView
+            android:id="@+id/account_reminders_amount_body_tv"
+            style="@style/Subtitle1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="4dp"
+            android:text="@{String.valueOf(viewmodel.accountDetails.statistics.remindersAmount)}"
+            android:textColor="?attr/colorOnBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/account_reminders_amount_overline_tv"
+            tools:text="48" />
+
+        <View
+            android:id="@+id/view2"
+            style="@style/Divider"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/account_sign_out_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/account_reminders_amount_body_tv" />
+
+        <Button
+            android:id="@+id/account_sign_out_button"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:onClick="@{(view) -> viewmodel.onSignOut()}"
+            android:text="@string/account_sign_out_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/account_reminders_amount_body_tv" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
