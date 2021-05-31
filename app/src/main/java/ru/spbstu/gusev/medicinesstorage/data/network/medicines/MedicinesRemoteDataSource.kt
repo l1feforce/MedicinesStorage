@@ -1,4 +1,4 @@
-package ru.spbstu.gusev.medicinesstorage.data.network.medicinesfirebase
+package ru.spbstu.gusev.medicinesstorage.data.network.medicines
 
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -7,7 +7,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.asDeferred
-import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
+import ru.spbstu.gusev.medicinesstorage.models.Medicine
 import ru.spbstu.gusev.medicinesstorage.extensions.generateUid
 
 class MedicinesRemoteDataSource : RemoteDataSource {

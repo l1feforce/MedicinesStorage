@@ -1,6 +1,6 @@
 package ru.spbstu.gusev.medicinesstorage.ui.medicines.adapters
 
-import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
+import ru.spbstu.gusev.medicinesstorage.models.Medicine
 
 interface OnClickListenerAdapter {
 

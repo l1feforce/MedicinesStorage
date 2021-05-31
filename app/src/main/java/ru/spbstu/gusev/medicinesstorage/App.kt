@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package ru.spbstu.gusev.medicinesstorage
 
 import android.app.Application

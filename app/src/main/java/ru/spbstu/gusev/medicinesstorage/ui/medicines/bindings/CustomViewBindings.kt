@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 import ru.spbstu.gusev.medicinesstorage.R
-import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
+import ru.spbstu.gusev.medicinesstorage.models.Medicine
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.adapters.ItemClickInterface
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.adapters.OnClickListenerAdapter
 import ru.spbstu.gusev.medicinesstorage.utils.DateUtil
@@ -121,25 +121,12 @@ fun TextView.setStoreDays(days: Int) {
 
 @BindingAdapter(value = ["volume"])
 fun TextView.setVolume(medicine: Medicine) {
-    this.text = "${medicine.residue.toInt()}/${medicine.volume.toInt()}"
+    this.text = "${medicine.residue}/${medicine.volume}"
     if (medicine.residue.toDouble() / medicine.volume <= 0.3) this.setTextColor(
         this.resources.getColor(
             R.color.red_error
         )
     )
-}
-
-@BindingAdapter("android:text")
-fun TextInputEditText.setFloat(number: Float) {
-    setText(number.toString())
-}
-
-@InverseBindingAdapter(attribute = "android:text")
-fun TextInputEditText.getFloat(): Float {
-    val text = this.text.toString().toFloatOrNull()
-    if (text == null) this.error =
-        this.resources.getString(R.string.dialog_medicine_details_edit_residue_volume_error)
-    return text ?: 0f
 }
 
 @BindingAdapter("android:text")

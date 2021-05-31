@@ -2,12 +2,10 @@ package ru.spbstu.gusev.medicinesstorage.models
 
 import android.os.Parcelable
 import androidx.room.TypeConverter
-import com.fasterxml.jackson.module.kotlin.jacksonMapperBuilder
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
-import kotlin.Exception
 
 @Parcelize
 data class Time(

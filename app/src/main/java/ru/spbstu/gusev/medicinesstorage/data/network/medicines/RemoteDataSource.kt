@@ -1,8 +1,7 @@
-package ru.spbstu.gusev.medicinesstorage.data.network.medicinesfirebase
+package ru.spbstu.gusev.medicinesstorage.data.network.medicines
 
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.flow.Flow
-import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
+import ru.spbstu.gusev.medicinesstorage.models.Medicine
 
 interface RemoteDataSource {
 

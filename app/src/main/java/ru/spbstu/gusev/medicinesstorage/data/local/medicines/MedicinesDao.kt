@@ -2,15 +2,12 @@ package ru.spbstu.gusev.medicinesstorage.data.local.medicines
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
-import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
+import ru.spbstu.gusev.medicinesstorage.models.Medicine
 
 @Dao
 interface MedicinesDao {
     @Query("SELECT * FROM medicine")
     fun getAll(): Flow<List<Medicine>>
-
-    @Query("SELECT * FROM medicine")
-    suspend fun getAllAsync(): List<Medicine>
 
     @Query("SELECT * FROM medicine WHERE uid=:id")
     suspend fun getById(id: Int): Medicine

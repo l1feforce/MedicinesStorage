@@ -1,7 +1,6 @@
 package ru.spbstu.gusev.medicinesstorage.ui.reminders
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
@@ -67,7 +66,6 @@ class RemindersFragment : Fragment() {
 
         viewModel.haveToTakeRemindersList.observe(viewLifecycleOwner, {
             haveToTakeRemindersAdapter.submitList(it)
-            Log.d("test", "getAllTriggeredReminders: allTriggered: ${it}")
         })
         viewModel.filteredRemindersList.observe(viewLifecycleOwner, {
             remindersAdapter.submitList(it)

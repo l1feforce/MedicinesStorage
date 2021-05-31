@@ -1,4 +1,4 @@
-package ru.spbstu.gusev.medicinesstorage.data.local.remiders
+package ru.spbstu.gusev.medicinesstorage.data.local.reminders
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

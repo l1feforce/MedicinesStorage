@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import ru.spbstu.gusev.medicinesstorage.data.local.MedicinesRepository
-import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
+import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MedicinesRepository
+import ru.spbstu.gusev.medicinesstorage.models.Medicine
 import ru.spbstu.gusev.medicinesstorage.utils.livedata.Event
 
 class MedicinesViewModel(medicinesRepository: MedicinesRepository) : ViewModel() {

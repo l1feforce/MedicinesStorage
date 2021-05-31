@@ -1,4 +1,4 @@
-package ru.spbstu.gusev.medicinesstorage.data.network.medicinesdatabase
+package ru.spbstu.gusev.medicinesstorage.data.network.grls
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import okhttp3.OkHttpClient
@@ -29,4 +29,4 @@ fun provideMedicinesDatabaseRetrofit(httpClient: OkHttpClient): Retrofit {
         .build()
 }
 
-fun provideMedicinesDatabaseApi(retrofit: Retrofit): MedicinesDatabaseApi = retrofit.create(MedicinesDatabaseApi::class.java)
+fun provideMedicinesDatabaseApi(retrofit: Retrofit): GrlsServiceApi = retrofit.create(GrlsServiceApi::class.java)

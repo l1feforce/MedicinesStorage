@@ -1,7 +1,5 @@
 package ru.spbstu.gusev.medicinesstorage.ui.reminders.bindings
 
-import android.util.Log
-import android.widget.LinearLayout
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter

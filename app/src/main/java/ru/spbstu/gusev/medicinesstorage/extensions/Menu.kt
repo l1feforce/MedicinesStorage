@@ -1,14 +1,10 @@
 package ru.spbstu.gusev.medicinesstorage.extensions
 
-import android.content.res.Resources
 import android.graphics.PorterDuff
 import android.view.Menu
-import android.view.View
 import android.widget.EditText
 import androidx.annotation.ColorInt
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.MaterialToolbar

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
+import ru.spbstu.gusev.medicinesstorage.models.Medicine
 import ru.spbstu.gusev.medicinesstorage.databinding.ItemMedicineBinding
 
 class MedicinesAdapter : ListAdapter<Medicine, MedicinesAdapter.MedicineViewHolder>(Companion), OnClickListenerAdapter {

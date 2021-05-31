@@ -1,8 +1,6 @@
 package ru.spbstu.gusev.medicinesstorage.models
 
 import androidx.lifecycle.MutableLiveData
-import androidx.room.ColumnInfo
-import androidx.room.PrimaryKey
 
 data class ReminderObservable(
     val id: Int = 0,

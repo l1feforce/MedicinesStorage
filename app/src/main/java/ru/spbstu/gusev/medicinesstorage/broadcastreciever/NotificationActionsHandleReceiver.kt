@@ -3,13 +3,10 @@ package ru.spbstu.gusev.medicinesstorage.broadcastreciever
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.util.Log
-import androidx.core.app.NotificationManagerCompat
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
-import ru.spbstu.gusev.medicinesstorage.data.local.remiders.RemindersRepository
-import ru.spbstu.gusev.medicinesstorage.utils.NotificationsUtil.Companion.showNotification
+import ru.spbstu.gusev.medicinesstorage.data.local.notifications.NotificationsRepository
 
 class NotificationActionsHandleReceiver : BroadcastReceiver() {
     companion object {
@@ -22,7 +19,7 @@ class NotificationActionsHandleReceiver : BroadcastReceiver() {
     private var reminderId: Int? = null
     private var isComplete: Boolean? = null
     private var triggeredReminderId: Int? = null
-    val remindersRepository: RemindersRepository by inject(RemindersRepository::class.java)
+    val notificationsRepository: NotificationsRepository by inject(NotificationsRepository::class.java)
 
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -35,12 +32,12 @@ class NotificationActionsHandleReceiver : BroadcastReceiver() {
         when {
             isComplete == true && reminderId != null -> {
                 GlobalScope.launch {
-                    remindersRepository.reminderComplete(reminderId!!, triggeredReminderId!!)
+                    notificationsRepository.reminderComplete(reminderId!!, triggeredReminderId!!)
                 }
             }
             isComplete == false && reminderId != null -> {
                 GlobalScope.launch {
-                    remindersRepository.reminderSkip(reminderId!!, triggeredReminderId!!)
+                    notificationsRepository.reminderSkip(reminderId!!, triggeredReminderId!!)
                 }
             }
         }

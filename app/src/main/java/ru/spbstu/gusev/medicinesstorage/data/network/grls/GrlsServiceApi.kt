@@ -1,11 +1,11 @@
-package ru.spbstu.gusev.medicinesstorage.data.network.medicinesdatabase
+package ru.spbstu.gusev.medicinesstorage.data.network.grls
 
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
-import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
+import ru.spbstu.gusev.medicinesstorage.models.Medicine
 
-interface MedicinesDatabaseApi {
+interface GrlsServiceApi {
 
     @Headers("Authorization: Basic bDFmZWZvcmNlOjg5MTA2Njg5NzEwQWE=")
     @GET("medicines/{query}")

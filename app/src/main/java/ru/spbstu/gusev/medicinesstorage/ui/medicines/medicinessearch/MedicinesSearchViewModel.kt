@@ -8,13 +8,13 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
+import ru.spbstu.gusev.medicinesstorage.data.network.grls.GrlsServiceRepository
 import ru.spbstu.gusev.medicinesstorage.data.network.helpers.ResultWrapper
-import ru.spbstu.gusev.medicinesstorage.data.network.medicinesdatabase.MedicinesNetworkRepository
+import ru.spbstu.gusev.medicinesstorage.models.Medicine
 import ru.spbstu.gusev.medicinesstorage.utils.livedata.Event
 
-class MedicinesSearchViewModel(val searchMedicinesRepository: MedicinesNetworkRepository) : ViewModel() {
-    val searchQuery = MutableLiveData<String>("")
+class MedicinesSearchViewModel(private val grlsServiceRepository: GrlsServiceRepository) : ViewModel() {
+    val searchQuery = MutableLiveData("")
     var oldQuery = ""
     val barcode = MutableLiveData<String>()
 
@@ -33,7 +33,7 @@ class MedicinesSearchViewModel(val searchMedicinesRepository: MedicinesNetworkRe
             delay(1000)
             Log.d("TAG", "performMedicinesSearch: inside")
             if (!query.isNullOrBlank()) {
-                val searchResultList = searchMedicinesRepository.getMedicinesSearchResult(query)
+                val searchResultList = grlsServiceRepository.getMedicinesSearchResult(query)
                 if (searchResultList is ResultWrapper.Success) medicinesList.postValue(
                     searchResultList.value
                 )
@@ -55,7 +55,7 @@ class MedicinesSearchViewModel(val searchMedicinesRepository: MedicinesNetworkRe
     fun performBarcodeSearch(barcode: String) {
         isLoading.value = true
         viewModelScope.launch {
-            val searchResultList = searchMedicinesRepository.getMedicinesByBarcode(barcode)
+            val searchResultList = grlsServiceRepository.getMedicinesByBarcode(barcode)
             if (searchResultList is ResultWrapper.Success) medicinesList.postValue(
                 searchResultList.value
             )

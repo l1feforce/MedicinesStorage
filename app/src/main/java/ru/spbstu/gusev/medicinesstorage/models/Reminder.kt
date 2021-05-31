@@ -39,27 +39,6 @@ data class Reminder(
     }
 
     companion object {
-        fun generateMock(): List<Reminder> {
-            val k = 10
-            val result = mutableListOf<Reminder>()
-            for (i in 1..k) {
-                result.add(
-                    Reminder(
-                        id = 0,
-                        medicineId = 0,
-                        tradeName = "Dummy name $i",
-                        imageRes = R.drawable.ic_medication_package,
-                        dosageForm = "Dummy dosage $i",
-                        dose = 10,
-                        intakes = listOf(),
-                        duration = 5,
-                        isStarted = i % 2 == 0,
-                        intakesAmount = 3
-                    )
-                )
-            }
-            return result
-        }
     }
 
 }

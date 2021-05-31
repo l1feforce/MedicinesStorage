@@ -10,12 +10,16 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import ru.spbstu.gusev.medicinesstorage.data.local.MedicinesRepository
+import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MedicinesRepository
+import ru.spbstu.gusev.medicinesstorage.data.local.statistics.StatisticsRepository
 import ru.spbstu.gusev.medicinesstorage.models.AccountDetails
 import ru.spbstu.gusev.medicinesstorage.models.Statistics
 import ru.spbstu.gusev.medicinesstorage.utils.livedata.Event
 
-class AccountViewModel(private val medicinesRepository: MedicinesRepository) : ViewModel() {
+class AccountViewModel(
+    private val medicinesRepository: MedicinesRepository,
+    private val statisticsRepository: StatisticsRepository
+) : ViewModel() {
 
     val currentUser = MutableLiveData(Firebase.auth.currentUser)
     val accountDetails = Transformations.map(currentUser) { firebaseUser ->
@@ -34,7 +38,7 @@ class AccountViewModel(private val medicinesRepository: MedicinesRepository) : V
 
     fun calculateStatistics() {
         viewModelScope.launch(Dispatchers.IO) {
-            val stats = medicinesRepository.getStatistics()
+            val stats = statisticsRepository.getStatistics()
             Log.d("test", "calculateStatistics: $stats")
             statistics.postValue(stats)
         }

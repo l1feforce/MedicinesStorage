@@ -1,6 +1,5 @@
 package ru.spbstu.gusev.medicinesstorage.extensions
 
-import android.app.Activity
 import android.content.Context
 import android.util.TypedValue
 import android.view.View

@@ -1,8 +1,5 @@
 package ru.spbstu.gusev.medicinesstorage.ui.reminders.bindings
 
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView

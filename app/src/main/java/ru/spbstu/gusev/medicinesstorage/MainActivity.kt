@@ -16,12 +16,12 @@ import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import ru.spbstu.gusev.medicinesstorage.data.network.medicinesdatabase.MedicinesNetworkRepository
+import ru.spbstu.gusev.medicinesstorage.data.network.grls.GrlsServiceRepository
 
 
 class MainActivity : AppCompatActivity() {
 
-    val medicinesNetworkRepository: MedicinesNetworkRepository by inject()
+    val grlsServiceRepository: GrlsServiceRepository by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setDefaultNightMode(MODE_NIGHT_NO)
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
         setupBottomNavBar()
         lifecycle.coroutineScope.launch {
-            medicinesNetworkRepository.wakeUpServer()
+            grlsServiceRepository.wakeUpServer()
         }
     }
 

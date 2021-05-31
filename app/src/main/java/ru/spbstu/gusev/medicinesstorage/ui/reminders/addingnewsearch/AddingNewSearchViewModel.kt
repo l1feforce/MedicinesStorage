@@ -4,11 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import ru.spbstu.gusev.medicinesstorage.data.local.MedicinesRepository
-import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
+import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MedicinesRepository
+import ru.spbstu.gusev.medicinesstorage.models.Medicine
 import ru.spbstu.gusev.medicinesstorage.utils.livedata.Event
 
-class AddingNewSearchViewModel(private val medicinesRepository: MedicinesRepository) : ViewModel() {
+class AddingNewSearchViewModel(medicinesRepository: MedicinesRepository) : ViewModel() {
     val searchQuery = MutableLiveData("")
 
     val medicinesList =

@@ -14,7 +14,7 @@ import com.dialog.plus.ui.DialogPlusBuilder
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.spbstu.gusev.medicinesstorage.R
-import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
+import ru.spbstu.gusev.medicinesstorage.models.Medicine
 import ru.spbstu.gusev.medicinesstorage.databinding.DialogMedicineDetailsEditResidueBinding
 import ru.spbstu.gusev.medicinesstorage.databinding.FragmentMedicineDetailsBinding
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.models.ResidueDetails
