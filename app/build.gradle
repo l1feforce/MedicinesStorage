@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id "org.jetbrains.kotlin.kapt"
     id "kotlin-parcelize"
+    id "com.google.gms.google-services"
 }
 
 android {
@@ -69,6 +70,8 @@ dependencies {
 
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutines_version"
+
 
     //Room
     implementation "androidx.room:room-runtime:$room_version"
@@ -98,5 +101,14 @@ dependencies {
 
     //Work manager
     implementation "androidx.work:work-runtime-ktx:$work_version"
+
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:28.0.1')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+
+    //Google services
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
 }

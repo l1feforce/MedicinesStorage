@@ -156,6 +156,7 @@
     <string name="account_sign_in_title">Sign in</string>
     <string name="account_sign_in_body">and store your medicines in the cloud.</string>
     <string name="account_sign_in_button">Sign in</string>
+    <string name="account_google_sign_in_error">Google sign in error</string>
 
     <string-array name="medicines_dosage_forms_array">
         <item>pcs.</item>

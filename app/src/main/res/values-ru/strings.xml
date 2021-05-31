@@ -148,4 +148,5 @@
     <string name="account_sign_in_body">и храните все ваши лекарства в облаке.</string>
     <string name="account_sign_in_button">Войти в аккаунт</string>
     <string name="account_sign_out_button">Выйти из аккаунта</string>
+    <string name="account_google_sign_in_error">Google sign in error</string>
 </resources>

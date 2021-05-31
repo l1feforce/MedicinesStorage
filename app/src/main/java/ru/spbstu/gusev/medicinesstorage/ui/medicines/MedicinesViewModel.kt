@@ -1,17 +1,20 @@
 package ru.spbstu.gusev.medicinesstorage.ui.medicines
 
-import androidx.lifecycle.*
-import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MedicinesDatabase
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import ru.spbstu.gusev.medicinesstorage.data.local.MedicinesRepository
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
 import ru.spbstu.gusev.medicinesstorage.utils.livedata.Event
 
-class MedicinesViewModel(val medicinesRepository: MedicinesDatabase) : ViewModel() {
+class MedicinesViewModel(medicinesRepository: MedicinesRepository) : ViewModel() {
 
     private val currentTimeSeconds = System.currentTimeMillis() / 1000
 
     val medicinesList =
-        medicinesRepository.medicinesDao().getAll().asLiveData()
-    val filteredMedicinesList = MutableLiveData(medicinesRepository.medicinesDao().getAll().asLiveData().value)
+        medicinesRepository.getAllMedicines().asLiveData()
+    val filteredMedicinesList = MutableLiveData(medicinesRepository.getAllMedicines().asLiveData().value)
     val isEmptyRecyclerView =
         Transformations.map(medicinesList) { it.isEmpty() }
 

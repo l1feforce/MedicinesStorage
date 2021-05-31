@@ -2,12 +2,10 @@ package ru.spbstu.gusev.medicinesstorage.data.local.remiders
 
 import android.content.Context
 import android.util.Log
-import androidx.room.Room
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import org.koin.java.KoinJavaComponent.inject
 import ru.spbstu.gusev.medicinesstorage.data.local.MedicinesRepository
-import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MEDICINES_DATABASE_NAME
-import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MedicinesDatabase
 import ru.spbstu.gusev.medicinesstorage.utils.NotificationsUtil.Companion.showNotification
 
 class NotifyWorker(appContext: Context, workerParams: WorkerParameters) :
@@ -35,12 +33,12 @@ class NotifyWorker(appContext: Context, workerParams: WorkerParameters) :
     }
 
     private suspend fun changeIsStartedFlag(reminderId: Int) {
-        val room = Room.databaseBuilder(
+        /*val room = Room.databaseBuilder(
             applicationContext,
             MedicinesDatabase::class.java,
             MEDICINES_DATABASE_NAME
-        ).build()
-        val medicinesRepository = MedicinesRepository(room)
+        ).build()*/
+        val medicinesRepository: MedicinesRepository by inject(MedicinesRepository::class.java)// = MedicinesRepository(room)
         val oldReminder = medicinesRepository.getReminderById(reminderId)
         medicinesRepository.updateReminder(oldReminder.copy(isStarted = false))
     }

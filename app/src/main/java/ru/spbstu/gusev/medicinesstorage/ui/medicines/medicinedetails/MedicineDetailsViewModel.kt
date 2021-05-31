@@ -1,15 +1,16 @@
 package ru.spbstu.gusev.medicinesstorage.ui.medicines.medicinedetails
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MedicinesDatabase
+import ru.spbstu.gusev.medicinesstorage.data.local.MedicinesRepository
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.models.ResidueDetails
 import ru.spbstu.gusev.medicinesstorage.utils.livedata.Event
 
-class MedicineDetailsViewModel(val userMedicinesRepository: MedicinesDatabase) : ViewModel() {
+class MedicineDetailsViewModel(private val medicinesRepository: MedicinesRepository) : ViewModel() {
 
     val medicineDetails = MutableLiveData<Medicine>()
 
@@ -38,7 +39,9 @@ class MedicineDetailsViewModel(val userMedicinesRepository: MedicinesDatabase) :
     fun onSave() {
         medicineDetails.value?.let { medicine ->
             viewModelScope.launch {
-                userMedicinesRepository.medicinesDao().insert(medicine)
+                Log.d("test", "onSave: id: ${medicine.uid}")
+                if (medicine.uid == 0) medicinesRepository.insertMedicines(medicine)
+                else medicinesRepository.updateMedicine(medicine)
             }
         }
         onSaveEvent.value = Event(Unit)
@@ -46,7 +49,7 @@ class MedicineDetailsViewModel(val userMedicinesRepository: MedicinesDatabase) :
 
     fun deleteMedicine() {
         viewModelScope.launch {
-            medicineDetails.value?.let { userMedicinesRepository.medicinesDao().delete(it) }
+            medicineDetails.value?.let { medicinesRepository.deleteMedicine(it) }
         }
     }
 

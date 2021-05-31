@@ -1,32 +1,66 @@
 package ru.spbstu.gusev.medicinesstorage.data.local
 
-import android.util.Log
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filter
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MedicinesDatabase
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.model.Medicine
+import ru.spbstu.gusev.medicinesstorage.data.network.medicinesfirebase.MedicinesRemoteDataSource
 import ru.spbstu.gusev.medicinesstorage.models.Reminder
+import ru.spbstu.gusev.medicinesstorage.models.Statistics
 import ru.spbstu.gusev.medicinesstorage.models.TriggeredReminder
 
-class MedicinesRepository(private val medicinesDatabase: MedicinesDatabase) {
+class MedicinesRepository(
+    private val medicinesDatabase: MedicinesDatabase,
+    private val medicinesRemoteDataSource: MedicinesRemoteDataSource
+) {
+    private fun isAuthorized(): Boolean = Firebase.auth.currentUser != null
 
     fun getAllMedicines(): Flow<List<Medicine>> {
-        return medicinesDatabase.medicinesDao().getAll()
+        return if (isAuthorized()) {
+            medicinesRemoteDataSource.getAll()!!
+        } else medicinesDatabase.medicinesDao().getAll()
     }
 
+    fun getAllLocalMedicines(): Flow<List<Medicine>> = medicinesDatabase.medicinesDao().getAll()
+
     suspend fun insertMedicines(vararg medicines: Medicine) {
-        medicinesDatabase.medicinesDao().insert(*medicines)
+        if (isAuthorized()) medicinesRemoteDataSource.insert(*medicines)
+        else medicinesDatabase.medicinesDao().insert(*medicines)
     }
 
     suspend fun getMedicineById(medicineId: Int): Medicine {
-        return medicinesDatabase.medicinesDao().getById(medicineId)
+        return if (isAuthorized()) medicinesRemoteDataSource.getById(medicineId)!!
+        else medicinesDatabase.medicinesDao()
+            .getById(medicineId)
     }
 
     suspend fun updateMedicine(medicine: Medicine) {
-        medicinesDatabase.medicinesDao().insert(medicine)
+        if (isAuthorized()) medicinesRemoteDataSource.update(medicine)
+        else medicinesDatabase.medicinesDao().insert(medicine)
     }
 
-    //TODO("Other medicines operations")
+    suspend fun deleteMedicine(medicine: Medicine) {
+        if (isAuthorized()) medicinesRemoteDataSource.delete(medicine)
+        else medicinesDatabase.medicinesDao().delete(medicine)
+    }
+
+    suspend fun insertMedicinesToRemote(vararg medicines: Medicine) {
+        medicinesRemoteDataSource.insert(*medicines)
+    }
+
+    suspend fun deleteAllLocalMedicines() {
+        medicinesDatabase.medicinesDao().deleteAll()
+    }
+
+    suspend fun getStatistics(): Statistics {
+        val medicinesAmount =
+            medicinesRemoteDataSource.getAllAsync()?.size ?: 0
+        val remindersAmount =
+            medicinesDatabase.remindersDao().getAllAsync().size
+        return Statistics(medicinesAmount, remindersAmount)
+    }
+
 
     fun getAllReminders(): Flow<List<Reminder>> {
         return medicinesDatabase.remindersDao().getAll()

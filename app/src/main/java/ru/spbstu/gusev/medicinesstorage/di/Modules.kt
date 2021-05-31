@@ -10,11 +10,12 @@ import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MEDICINES_DATABASE_
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MedicinesDatabase
 import ru.spbstu.gusev.medicinesstorage.data.local.remiders.RemindersRepository
 import ru.spbstu.gusev.medicinesstorage.data.network.medicinesdatabase.*
+import ru.spbstu.gusev.medicinesstorage.data.network.medicinesfirebase.MedicinesRemoteDataSource
 import ru.spbstu.gusev.medicinesstorage.ui.account.AccountViewModel
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.MedicinesViewModel
-import ru.spbstu.gusev.medicinesstorage.ui.medicines.scanner.ScannerViewModel
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.medicinedetails.MedicineDetailsViewModel
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.medicinessearch.MedicinesSearchViewModel
+import ru.spbstu.gusev.medicinesstorage.ui.medicines.scanner.ScannerViewModel
 import ru.spbstu.gusev.medicinesstorage.ui.reminders.RemindersViewModel
 import ru.spbstu.gusev.medicinesstorage.ui.reminders.addingnewsearch.AddingNewSearchViewModel
 import ru.spbstu.gusev.medicinesstorage.ui.reminders.reminderdetails.ReminderDetailsViewModel
@@ -28,14 +29,15 @@ fun mainModule() = module {
         ).build()
     }
     single { WorkManager.getInstance(androidApplication()) }
-    single { MedicinesRepository(get()) }
+    single { MedicinesRemoteDataSource() }
+    single { MedicinesRepository(get(), get()) }
     single { RemindersRepository(get(), get(), androidApplication()) }
 }
 
 fun viewModelsModel() = module {
     viewModel { MedicinesViewModel(get()) }
     viewModel { RemindersViewModel(get(), get()) }
-    viewModel { AccountViewModel() }
+    viewModel { AccountViewModel(get()) }
     viewModel { MedicineDetailsViewModel(get()) }
     viewModel { MedicinesSearchViewModel(get()) }
     viewModel { ScannerViewModel() }
