@@ -65,6 +65,7 @@ fun LinearLayout.getIntakes(): List<Time> {
 @BindingAdapter("app:intakesAttrChanged")
 fun LinearLayout.setIntakesListener(attrChange: InverseBindingListener) {
     this.addOnLayoutChangeListener { view, _, _, _, _, _, _, _, _ ->
+        attrChange.onChange()
         this.forEach { view ->
             if (view is ConstraintLayout) {
                 val inputLayout = view.findViewById<TextInputLayout>(R.id.item_take_time_input)

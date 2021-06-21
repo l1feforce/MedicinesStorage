@@ -19,3 +19,21 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keepattributes Signature
+-keep class kotlin.coroutines.Continuation
+
+-keepclassmembers,allowobfuscation class * {
+ @com.fasterxml.jackson.annotation.JsonProperty <fields>;
+}
+-keep @kotlinx.parcelize.Parcelize public class *
+-keep class * extends androidx.room.RoomDatabase
+-keep @androidx.room.Entity class *
+-dontwarn androidx.room.paging.**
+-keepclassmembers class **$WhenMappings {
+    <fields>;
+}
+-keep class kotlin.Metadata { *; }
+-keepclassmembers class kotlin.Metadata {
+    public <methods>;
+}

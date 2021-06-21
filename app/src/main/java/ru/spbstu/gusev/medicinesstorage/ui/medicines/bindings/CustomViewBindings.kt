@@ -12,7 +12,6 @@ import ru.spbstu.gusev.medicinesstorage.models.Medicine
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.adapters.ItemClickInterface
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.adapters.OnClickListenerAdapter
 import ru.spbstu.gusev.medicinesstorage.utils.DateUtil
-import java.lang.StringBuilder
 import kotlin.math.abs
 import kotlin.math.round
 

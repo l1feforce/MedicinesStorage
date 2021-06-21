@@ -13,6 +13,8 @@
 
         <import type="com.google.android.material.timepicker.MaterialTimePicker" />
 
+        <import type="ru.spbstu.gusev.medicinesstorage.R" />
+
         <variable
             name="onChooseTime"
             type="Function0&lt;MaterialTimePicker>" />
@@ -104,6 +106,7 @@
                     android:hint="@string/reminder_details_dose"
                     app:endIconDrawable="@drawable/ic_help_outline_16px"
                     app:endIconMode="custom"
+                    app:expandedHintEnabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/reminder_details_dosage_form_title_tv"
@@ -138,12 +141,15 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/reminder_details_intakes_amount_input"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    setEndIconClickListener="@{viewmodel.onIntakesAmountHelpClicked}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="16dp"
                     android:hint="@string/reminder_details_intakes_amount"
+                    app:endIconDrawable="@drawable/ic_help_outline_16px"
+                    app:endIconMode="custom"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/reminder_details_medication_schedule_title_tv">
@@ -190,6 +196,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/reminder_details_duration_input"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    setEndIconClickListener="@{viewmodel.onDaysDurationHelpClicked}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -197,6 +204,9 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:hint="@string/reminder_details_duration"
+                    app:endIconDrawable="@drawable/ic_help_outline_16px"
+                    app:endIconMode="custom"
+                    app:expandedHintEnabled="false"
                     app:hintEnabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

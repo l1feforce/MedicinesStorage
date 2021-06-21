@@ -2,7 +2,6 @@ package ru.spbstu.gusev.medicinesstorage.data.local.notifications
 
 import android.content.Context
 import android.util.Log
-import androidx.core.app.NotificationManagerCompat
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
@@ -14,6 +13,7 @@ import ru.spbstu.gusev.medicinesstorage.extensions.toIntOrZero
 import ru.spbstu.gusev.medicinesstorage.models.Reminder
 import ru.spbstu.gusev.medicinesstorage.models.Time
 import ru.spbstu.gusev.medicinesstorage.models.TriggeredReminder
+import ru.spbstu.gusev.medicinesstorage.models.toTime
 import ru.spbstu.gusev.medicinesstorage.utils.DateUtil
 import ru.spbstu.gusev.medicinesstorage.utils.DateUtil.Companion.toTime
 import ru.spbstu.gusev.medicinesstorage.utils.NotificationsUtil.Companion.showNotificationMedicineIsOver
@@ -21,7 +21,7 @@ import ru.spbstu.gusev.medicinesstorage.utils.NotificationsUtil.Companion.showNo
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class NotificationsRepository(
+class NotificationsService(
     private val medicinesRepository: MedicinesRepository,
     private val remindersRepository: RemindersRepository,
     private val workManager: WorkManager,
@@ -29,7 +29,6 @@ class NotificationsRepository(
 ) {
 
     suspend fun reminderComplete(id: Int, triggeredReminderId: Int) {
-        Log.d("test", "reminderComplete: id: $id, triggeredReminderId: $triggeredReminderId")
         try {
             val reminder = remindersRepository.getReminderById(id)
             val medicine = medicinesRepository.getMedicineById(reminder.medicineId)
@@ -54,7 +53,6 @@ class NotificationsRepository(
             )
             medicinesRepository.updateMedicine(medicine.copy(residue = newResidue.toIntOrZero()))
             remindersRepository.deleteTriggeredReminderById(triggeredReminderId)
-            NotificationManagerCompat.from(context).cancel(id)
         } catch (e: Exception) {
         }
     }
@@ -87,7 +85,6 @@ class NotificationsRepository(
                 )
             )
             remindersRepository.deleteTriggeredReminderById(triggeredReminderId)
-            NotificationManagerCompat.from(context).cancel(id)
         } catch (e: Exception) {
         }
     }
@@ -102,29 +99,21 @@ class NotificationsRepository(
 
     suspend fun startReminder(reminder: Reminder) {
         val id = remindersRepository.insertReminders(reminder).firstOrNull()
-        addNotifications(reminder.copy(id = id?.toInt() ?: 0))
+        addNotifications(reminder.copy(id = id.toIntOrZero()))
     }
 
     private suspend fun addNotifications(reminder: Reminder) {
-        val workerTag = StringBuilder(reminder.id.toString())
+        val workerTag = reminder.id.toString()
         val intakes = reminder.intakes.sortedWith(compareBy({ it.hours }, { it.minutes }))
 
-        var startIntakeIndex = DateUtil.calculateNearestIntakeIndex(intakes)
-        Log.d("test", "addNotifications: startIntakeIndex: $startIntakeIndex")
-        val startDayDelta = if (startIntakeIndex == null) {
-            startIntakeIndex = 0
-            1
-        } else 0
+        val initialIntakeData = DateUtil.calculateNearestIntakeIndex(intakes)
+        val startIntakeIndex = initialIntakeData.initialIntakeIndex
+        val startDayDelta = initialIntakeData.initialDayDelta
         val startDate = Calendar.getInstance()
-        Log.d(
-            "test",
-            "addNotifications: startDayDelta: $startDayDelta, duration: ${reminder.duration}, intakesAmount: ${reminder.intakesAmount}"
-        )
 
         for (i in 0 until reminder.duration * reminder.intakesAmount) {
             val currentIntake = intakes[(startIntakeIndex + i) % reminder.intakesAmount]
             val daysDelta = startDayDelta + (startIntakeIndex + i) / reminder.intakesAmount
-            Log.d("test", "addNotifications: currentIntake: $currentIntake, daysDelta: $daysDelta")
             val millisDelta =
                 DateUtil.calculateDelayInMillis(startDate.toTime(), currentIntake, daysDelta)
 
@@ -137,22 +126,17 @@ class NotificationsRepository(
                     triggerTime = System.currentTimeMillis() + millisDelta
                 )
             )
-            Log.d(
-                "test",
-                "addNotifications: triggeredReminderId: $triggeredReminderId \n reminderId: ${reminder.id}"
-            )
             val inputData = getInputData(
                 reminder,
                 currentIntake,
-                triggeredReminderId.firstOrNull()?.toInt() ?: 0,
+                triggeredReminderId.firstOrNull().toIntOrZero(),
                 i == reminder.duration * reminder.intakesAmount - 1
             )
-            Log.d("test", "addNotifications: time: ${millisDelta / 1000 / 60 / 60}")
             val notificationWork =
                 OneTimeWorkRequestBuilder<NotifyWorker>()
                     .setInputData(inputData)
                     .setInitialDelay(millisDelta, TimeUnit.MILLISECONDS)
-                    .addTag(workerTag.toString())
+                    .addTag(workerTag)
                     .build()
             workManager.enqueue(notificationWork)
         }
@@ -191,6 +175,21 @@ class NotificationsRepository(
     suspend fun removeReminder(reminder: Reminder) {
         remindersRepository.deleteReminder(reminder)
         stopReminder(reminder)
+    }
+
+    suspend fun postponeNotification(reminderId: Int, triggeredReminderId: Int) {
+        val reminder = remindersRepository.getReminderById(reminderId)
+        val triggeredReminder = remindersRepository.getTriggeredReminderById(triggeredReminderId)
+        val time = triggeredReminder.tradeName.split(" ").lastOrNull().toTime()
+        val inputData = getInputData(reminder, time, triggeredReminderId, false)
+
+        val notificationWork =
+            OneTimeWorkRequestBuilder<NotifyWorker>()
+                .setInputData(inputData)
+                .setInitialDelay(5, TimeUnit.MINUTES)
+                .addTag(reminderId.toString())
+                .build()
+        workManager.enqueue(notificationWork)
     }
 
 }

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.spbstu.gusev.medicinesstorage.databinding.ItemReminderHaveToTakeBinding
 import ru.spbstu.gusev.medicinesstorage.models.TriggeredReminder
 
-class HaveToTakeRemindersAdapter : ListAdapter<TriggeredReminder, HaveToTakeRemindersAdapter.MedicineViewHolder>(Companion) {
+class TriggeredRemindersAdapter : ListAdapter<TriggeredReminder, TriggeredRemindersAdapter.MedicineViewHolder>(Companion) {
 
     private var onItemClickListener: ((TriggeredReminder) -> Unit)? = null
     private var onItemCheckedListener: ((TriggeredReminder, View) -> Unit)? = null

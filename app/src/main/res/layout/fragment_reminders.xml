@@ -12,8 +12,8 @@
             type="ru.spbstu.gusev.medicinesstorage.ui.reminders.RemindersViewModel" />
 
         <variable
-            name="haveToTakeRemindersAdapter"
-            type="ru.spbstu.gusev.medicinesstorage.ui.reminders.adapters.HaveToTakeRemindersAdapter" />
+            name="triggeredRemindersAdapter"
+            type="ru.spbstu.gusev.medicinesstorage.ui.reminders.adapters.TriggeredRemindersAdapter" />
 
         <variable
             name="remindersAdapter"
@@ -24,6 +24,7 @@
         <import type="kotlin.Unit" />
 
         <import type="ru.spbstu.gusev.medicinesstorage.models.Reminder" />
+
         <import type="ru.spbstu.gusev.medicinesstorage.models.TriggeredReminder" />
 
         <variable
@@ -55,7 +56,7 @@
                 <androidx.constraintlayout.widget.Group
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewmodel.isEmptyHaveToTakeRemindersList() ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{viewmodel.isEmptyTriggeredRemindersList() ? View.GONE : View.VISIBLE}"
                     app:constraint_referenced_ids="have_to_take_reminders_title_tv,have_to_take_reminders_recycler_view"
                     tools:visibility="visible" />
 
@@ -73,7 +74,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/have_to_take_reminders_recycler_view"
-                    setAdapterReminders="@{haveToTakeRemindersAdapter}"
+                    setAdapterReminders="@{triggeredRemindersAdapter}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:nestedScrollingEnabled="false"
@@ -127,6 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="32dp"
+            android:backgroundTint="?attr/colorPrimary"
             android:contentDescription="@string/medicines_extended_fab_label"
             android:onClick="@{(view) -> viewmodel.addNewReminder()}"
             android:text="@string/medicines_extended_fab_label"
@@ -139,7 +141,7 @@
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{(viewmodel.isEmptyRecyclerView() &amp;&amp; viewmodel.isEmptyHaveToTakeRemindersList()) ? View.VISIBLE : View.GONE}"
+            android:visibility="@{(viewmodel.isEmptyRecyclerView() &amp;&amp; viewmodel.isEmptyTriggeredRemindersList()) ? View.VISIBLE : View.GONE}"
             app:constraint_referenced_ids="reminders_empty_list_img,reminders_empty_list_title"
             tools:visibility="visible" />
 

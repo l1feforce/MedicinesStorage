@@ -144,7 +144,7 @@
     <string name="notifications_action_intake_complete">Take</string>
     <string name="notifications_action_intake_skip">Skip</string>
 
-    <string name="notifications_title_new_intake">It\'s time to take %1$d %2$s of %3$s!</string>
+    <string name="notifications_title_new_intake">It\'s time to take %1$d %2$s of %3$s.</string>
     <string name="notifications_title_no_medicines">You ran out of %1$s medication.</string>
     <string name="notifications_title_medicine_will_end_soon">The %1$s medicine will run out soon.</string>
     <string name="notifications_body_medicine_will_end_soon">There are %1$d more %2$s left.</string>
@@ -157,6 +157,11 @@
     <string name="account_sign_in_body">and store your medicines in the cloud.</string>
     <string name="account_sign_in_button">Sign in</string>
     <string name="account_google_sign_in_error">Google sign in error</string>
+    <string name="reminder_details_intakes_amount_help_message">Specify the number of intakes of the medication per day.</string>
+    <string name="reminder_details_duration_help_message">Specify how many days you will take the medicine.</string>
+    <string name="dialog_medicine_details_edit_residue_title">Edit quantity</string>
+    <string name="notifications_action_intake_postpone">Postpone</string>
+    <string name="notifications_channel_name">Reminders</string>
 
     <string-array name="medicines_dosage_forms_array">
         <item>pcs.</item>

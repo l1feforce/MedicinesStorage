@@ -16,7 +16,7 @@
 
         <ImageView
             android:id="@+id/item_medicine_image"
-            src="@{medicineItem.imageUrl}"
+            photoByDosageForm="@{medicineItem.unitsOfMeasure}"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginStart="16dp"

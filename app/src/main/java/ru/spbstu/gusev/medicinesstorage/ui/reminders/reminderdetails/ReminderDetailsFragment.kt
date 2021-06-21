@@ -74,23 +74,44 @@ class ReminderDetailsFragment : Fragment() {
                 R.string.reminder_details_dosage_help_message
             )
         })
+        viewModel.onIntakesAmountHelpClickedEvent.observe(viewLifecycleOwner, EventObserver {
+            showSnackbar(
+                binding.reminderDetailsIntakesAmountInput,
+                R.string.reminder_details_intakes_amount_help_message
+            )
+        })
+        viewModel.onDaysDurationHelpClickedEvent.observe(viewLifecycleOwner, EventObserver {
+            showSnackbar(
+                binding.reminderDetailsDurationInput,
+                R.string.reminder_details_duration_help_message
+            )
+        })
     }
 
     private fun isFieldsValid(): Boolean {
         var result = true
         if (binding.reminderDetailsDoseInput.editText?.text.toString().isEmpty()) {
-            binding.reminderDetailsDoseInput.error = resources.getString(R.string.reminder_details_field_error)
-            binding.reminderDetailsDoseInput.editText?.addTextChangedListener { binding.reminderDetailsDoseInput.error = "" }
+            binding.reminderDetailsDoseInput.error =
+                resources.getString(R.string.reminder_details_field_error)
+            binding.reminderDetailsDoseInput.editText?.addTextChangedListener {
+                binding.reminderDetailsDoseInput.error = ""
+            }
             result = false
         }
         if (binding.reminderDetailsIntakesAmountInput.editText?.text.toString().isEmpty()) {
-            binding.reminderDetailsIntakesAmountInput.error = resources.getString(R.string.reminder_details_field_error)
-            binding.reminderDetailsIntakesAmountInput.editText?.addTextChangedListener { binding.reminderDetailsIntakesAmountInput.error = "" }
+            binding.reminderDetailsIntakesAmountInput.error =
+                resources.getString(R.string.reminder_details_field_error)
+            binding.reminderDetailsIntakesAmountInput.editText?.addTextChangedListener {
+                binding.reminderDetailsIntakesAmountInput.error = ""
+            }
             result = false
         }
         if (binding.reminderDetailsDurationInput.editText?.text.toString().isEmpty()) {
-            binding.reminderDetailsDurationInput.error = resources.getString(R.string.reminder_details_field_error)
-            binding.reminderDetailsDurationInput.editText?.addTextChangedListener { binding.reminderDetailsDurationInput.error = "" }
+            binding.reminderDetailsDurationInput.error =
+                resources.getString(R.string.reminder_details_field_error)
+            binding.reminderDetailsDurationInput.editText?.addTextChangedListener {
+                binding.reminderDetailsDurationInput.error = ""
+            }
             result = false
         }
         binding.root.clearFocus()

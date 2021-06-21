@@ -117,6 +117,7 @@
             android:contentDescription="@string/medicines_extended_fab_label"
             android:onClick="@{(view) -> viewmodel.addNewMedicine()}"
             android:text="@string/medicines_extended_fab_label"
+            android:backgroundTint="?attr/colorPrimary"
             android:textColor="?attr/colorOnPrimary"
             app:icon="@drawable/ic_plus_24dp"
             app:iconTint="?attr/colorOnPrimary"
@@ -126,7 +127,7 @@
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{viewmodel.isEmptyRecyclerView() ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewmodel.isEmptyMedicinesList() ? View.VISIBLE : View.GONE}"
             app:constraint_referenced_ids="medicines_empty_list_img,medicines_empty_list_title"
             tools:visibility="visible" />
 

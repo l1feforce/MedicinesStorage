@@ -4,9 +4,18 @@ plugins {
     id "org.jetbrains.kotlin.kapt"
     id "kotlin-parcelize"
     id "com.google.gms.google-services"
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/Users/mac/keyfile.keystore')
+            storePassword 'android'
+            keyAlias 'medicines_storage'
+            keyPassword '89106689710'
+        }
+    }
     compileSdkVersion 30
 
     defaultConfig {
@@ -17,12 +26,15 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources = true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
@@ -104,6 +116,7 @@ dependencies {
 
     //Firebase
     implementation platform('com.google.firebase:firebase-bom:28.0.1')
+    implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'

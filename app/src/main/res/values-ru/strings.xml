@@ -57,10 +57,10 @@
     <string name="reminder_details_medication_duration">Длительность приема</string>
     <string name="reminder_details_days">дней</string>
     <string name="notifications_action_intake_skip">Пропустить</string>
-    <string name="notifications_title_new_intake">Время принять %1$d %2$s %3$s!</string>
+    <string name="notifications_title_new_intake">Время принять %1$d %2$s %3$s</string>
     <string name="notifications_title_no_medicines">У вас кончилось лекарство %1$s.</string>
     <string name="notifications_title_medicine_will_end_soon">Лекарство %1$s скоро закончится.</string>
-    <string name="notifications_body_medicine_will_end_soon">Еще осталось %1$d %2$s.</string>
+    <string name="notifications_body_medicine_will_end_soon">Еще осталось %1$d %2$s</string>
     <string name="reminder_details_dosage_help_message">Укажите количество лекарства, которое вы принимаете за раз.</string>
     <string name="reminder_details_field_error">Введите значение</string>
 
@@ -136,6 +136,7 @@
     </string-array>
 
     <string-array name="medicines_dosage_forms_array">
+        <item>табл.</item>
         <item>шт.</item>
         <item>доз.</item>
         <item>мл.</item>
@@ -149,4 +150,9 @@
     <string name="account_sign_in_button">Войти в аккаунт</string>
     <string name="account_sign_out_button">Выйти из аккаунта</string>
     <string name="account_google_sign_in_error">Google sign in error</string>
+    <string name="reminder_details_intakes_amount_help_message">Укажите количество приемов лекарства в день.</string>
+    <string name="reminder_details_duration_help_message">Укажите сколько дней вы будете принимать лекарство.</string>
+    <string name="dialog_medicine_details_edit_residue_title">Редактировать количество</string>
+    <string name="notifications_action_intake_postpone">Отложить</string>
+    <string name="notifications_channel_name">Напоминания</string>
 </resources>

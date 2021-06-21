@@ -8,7 +8,7 @@ import org.koin.dsl.module
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MEDICINES_DATABASE_NAME
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MedicinesDatabase
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MedicinesRepository
-import ru.spbstu.gusev.medicinesstorage.data.local.notifications.NotificationsRepository
+import ru.spbstu.gusev.medicinesstorage.data.local.notifications.NotificationsService
 import ru.spbstu.gusev.medicinesstorage.data.local.reminders.REMINDERS_DATABASE_NAME
 import ru.spbstu.gusev.medicinesstorage.data.local.reminders.RemindersDatabase
 import ru.spbstu.gusev.medicinesstorage.data.local.reminders.RemindersRepository
@@ -44,7 +44,7 @@ fun mainModule() = module {
     single { MedicinesRepository(get(), get()) }
     single { StatisticsRepository(get(), get()) }
     single { RemindersRepository(get()) }
-    single { NotificationsRepository(get(), get(), get(), androidApplication()) }
+    single { NotificationsService(get(), get(), get(), androidApplication()) }
 }
 
 fun viewModelsModel() = module {

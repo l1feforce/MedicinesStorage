@@ -72,7 +72,7 @@
 
                 <ImageView
                     android:id="@+id/medicine_details_image"
-                    src="@{viewmodel.medicineDetails.imageUrl}"
+                    photoByDosageForm="@{viewmodel.medicineDetails.unitsOfMeasure}"
                     android:layout_width="match_parent"
                     android:layout_height="194dp"
                     android:layout_marginStart="@dimen/medicine_details_side_margins"

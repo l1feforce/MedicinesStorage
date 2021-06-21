@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.os.bundleOf
@@ -13,12 +14,17 @@ import androidx.navigation.NavDeepLinkBuilder
 import ru.spbstu.gusev.medicinesstorage.MainActivity
 import ru.spbstu.gusev.medicinesstorage.R
 import ru.spbstu.gusev.medicinesstorage.broadcastreciever.NotificationActionsHandleReceiver
+import ru.spbstu.gusev.medicinesstorage.broadcastreciever.NotificationActionsHandleReceiver.Companion.EXTRA_BUNDLE_KEY
+import ru.spbstu.gusev.medicinesstorage.broadcastreciever.NotificationActionsHandleReceiver.Companion.IS_COMPLETE
+import ru.spbstu.gusev.medicinesstorage.broadcastreciever.NotificationActionsHandleReceiver.Companion.IS_DELAYED
+import ru.spbstu.gusev.medicinesstorage.broadcastreciever.NotificationActionsHandleReceiver.Companion.REMINDER_ID
+import ru.spbstu.gusev.medicinesstorage.broadcastreciever.NotificationActionsHandleReceiver.Companion.TRIGGERED_REMINDER_ID
 import kotlin.random.Random
 
 class NotificationsUtil {
     companion object {
         const val channelId = "reminders_channel_id"
-        const val channelName = "Reminders"
+        const val channelName = R.string.notifications_channel_name
 
         @SuppressLint("NewApi")
         private fun Context.createNotificationChannel() {
@@ -26,7 +32,7 @@ class NotificationsUtil {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                     NotificationChannel(
                         channelId,
-                        channelName, NotificationManager.IMPORTANCE_HIGH
+                        this.getString(channelName), NotificationManager.IMPORTANCE_HIGH
                     )
                 } else null
             val manager = getSystemService(
@@ -42,7 +48,7 @@ class NotificationsUtil {
 
             val builder = getBaseNotification(title, body)
 
-            NotificationManagerCompat.from(this).notify(Random(124).nextInt(), builder.build())
+            NotificationManagerCompat.from(this).notify(Random.Default.nextInt(), builder.build())
         }
 
         fun Context.showNotificationMedicineIsOver(title: String) {
@@ -50,7 +56,7 @@ class NotificationsUtil {
 
             val builder = getBaseNotification(title = title)
 
-            NotificationManagerCompat.from(this).notify(Random(124).nextInt(), builder.build())
+            NotificationManagerCompat.from(this).notify(Random.Default.nextInt(), builder.build())
         }
 
         fun Context.showNotification(
@@ -63,29 +69,85 @@ class NotificationsUtil {
 
             val actionIntakeCompleteIntent =
                 Intent(this, NotificationActionsHandleReceiver::class.java).apply {
-                    putExtra(NotificationActionsHandleReceiver.EXTRA_BUNDLE_KEY, bundleOf(
-                        NotificationActionsHandleReceiver.IS_COMPLETE to true,
-                        NotificationActionsHandleReceiver.REMINDER_ID to id,
-                        NotificationActionsHandleReceiver.TRIGGERED_REMINDER_ID to triggeredReminderId)
+                    putExtra(
+                        EXTRA_BUNDLE_KEY, bundleOf(
+                            IS_COMPLETE to true,
+                            REMINDER_ID to id,
+                            TRIGGERED_REMINDER_ID to triggeredReminderId
+                        )
                     )
                 }
             val actionIntakeCompletePendingIntent =
-                PendingIntent.getBroadcast(this, id, actionIntakeCompleteIntent, 0)
+                PendingIntent.getBroadcast(
+                    this,
+                    Random.Default.nextInt(),
+                    actionIntakeCompleteIntent,
+                    0
+                )
+            Log.d(
+                "test", "showNotification: actionIntakeComplete: ${
+                    actionIntakeCompleteIntent.getBundleExtra(
+                        EXTRA_BUNDLE_KEY
+                    )
+                }"
+            )
 
-            val actionIntakeSkipIntent = Intent(this, NotificationActionsHandleReceiver::class.java).apply {
-                putExtra(NotificationActionsHandleReceiver.EXTRA_BUNDLE_KEY, bundleOf(
-                    NotificationActionsHandleReceiver.IS_COMPLETE to false,
-                    NotificationActionsHandleReceiver.REMINDER_ID to id,
-                    NotificationActionsHandleReceiver.TRIGGERED_REMINDER_ID to triggeredReminderId
-                ))
-            }
-            val actionIntakeSkipPendingIntent = PendingIntent.getBroadcast(this, id, actionIntakeSkipIntent, 0)
+            val actionIntakePostpone =
+                Intent(this, NotificationActionsHandleReceiver::class.java).apply {
+                    putExtra(
+                        EXTRA_BUNDLE_KEY, bundleOf(
+                            IS_COMPLETE to false,
+                            REMINDER_ID to id,
+                            TRIGGERED_REMINDER_ID to triggeredReminderId,
+                            IS_DELAYED to true
+                        )
+                    )
+                }
+            val actionIntakePostponePendingIntent =
+                PendingIntent.getBroadcast(this, Random.Default.nextInt(), actionIntakePostpone, 0)
+            Log.d(
+                "test", "showNotification: actionIntakePostpone: ${
+                    actionIntakePostpone.getBundleExtra(
+                        EXTRA_BUNDLE_KEY
+                    )
+                }"
+            )
+
+            val actionIntakeSkipIntent =
+                Intent(this, NotificationActionsHandleReceiver::class.java).apply {
+                    putExtra(
+                        EXTRA_BUNDLE_KEY, bundleOf(
+                            IS_COMPLETE to false,
+                            REMINDER_ID to id,
+                            TRIGGERED_REMINDER_ID to triggeredReminderId
+                        )
+                    )
+                }
+            val actionIntakeSkipPendingIntent =
+                PendingIntent.getBroadcast(
+                    this,
+                    Random.Default.nextInt(),
+                    actionIntakeSkipIntent,
+                    0
+                )
+            Log.d(
+                "test", "showNotification: actionIntakeSkip: ${
+                    actionIntakeSkipIntent.getBundleExtra(
+                        EXTRA_BUNDLE_KEY
+                    )
+                }"
+            )
 
             val builder = getBaseNotification(title, body)
                 .addAction(
                     R.drawable.ic_medication_package,
                     resources.getString(R.string.notifications_action_intake_skip),
                     actionIntakeSkipPendingIntent
+                )
+                .addAction(
+                    R.drawable.ic_medication_package,
+                    resources.getString(R.string.notifications_action_intake_postpone),
+                    actionIntakePostponePendingIntent
                 )
                 .addAction(
                     R.drawable.ic_medication_package,
@@ -107,11 +169,10 @@ class NotificationsUtil {
                 .createPendingIntent()
 
             val builder = NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_date_range_24px)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 // Set the intent that will fire when the user taps the notification
                 .setContentIntent(contentPendingIntent)
-                .setAutoCancel(true)
 
             if (title.isNotBlank()) builder.setContentTitle(title)
             if (body.isNotBlank()) builder.setContentText(body)

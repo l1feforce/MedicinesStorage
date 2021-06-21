@@ -1,11 +1,13 @@
 package ru.spbstu.gusev.medicinesstorage.models
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
+@Keep
 @Entity
 @Parcelize
 data class Medicine(

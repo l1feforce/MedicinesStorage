@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import ru.spbstu.gusev.medicinesstorage.data.local.notifications.NotificationsRepository
+import ru.spbstu.gusev.medicinesstorage.data.local.notifications.NotificationsService
 import ru.spbstu.gusev.medicinesstorage.models.ReminderObservable
 import ru.spbstu.gusev.medicinesstorage.utils.livedata.Event
 
 class ReminderDetailsViewModel(
-    private val notificationsRepository: NotificationsRepository
+    private val notificationsService: NotificationsService
 ) : ViewModel() {
     val reminderDetails = MutableLiveData<ReminderObservable>()
 
@@ -24,8 +24,8 @@ class ReminderDetailsViewModel(
         GlobalScope.launch {
             reminderDetails.value?.toReminder()?.let { reminder ->
                 Log.d("test", "onSave: reminder: $reminder")
-                notificationsRepository.stopReminder(reminder)
-                notificationsRepository.startReminder(reminder.copy(isStarted = true))
+                notificationsService.stopReminder(reminder)
+                notificationsService.startReminder(reminder.copy(isStarted = true))
             }
         }
     }
@@ -38,7 +38,7 @@ class ReminderDetailsViewModel(
     fun deleteReminder() {
         viewModelScope.launch {
             reminderDetails.value?.toReminder()?.let { reminder ->
-                notificationsRepository.removeReminder(reminder)
+                notificationsService.removeReminder(reminder)
             }
         }
     }
@@ -46,5 +46,13 @@ class ReminderDetailsViewModel(
     val onDoseHelpClickedEvent = MutableLiveData<Event<Unit>>()
     fun onDoseHelpClicked() {
         onDoseHelpClickedEvent.value = Event(Unit)
+    }
+    val onIntakesAmountHelpClickedEvent = MutableLiveData<Event<Unit>>()
+    fun onIntakesAmountHelpClicked() {
+        onIntakesAmountHelpClickedEvent.value = Event(Unit)
+    }
+    val onDaysDurationHelpClickedEvent = MutableLiveData<Event<Unit>>()
+    fun onDaysDurationHelpClicked() {
+        onDaysDurationHelpClickedEvent.value = Event(Unit)
     }
 }

@@ -1,5 +1,6 @@
 package ru.spbstu.gusev.medicinesstorage.utils
 
+import ru.spbstu.gusev.medicinesstorage.models.IntakeInitialData
 import ru.spbstu.gusev.medicinesstorage.models.Time
 import java.text.SimpleDateFormat
 import java.util.*
@@ -17,16 +18,16 @@ class DateUtil {
         fun calculateDaysDistance(currentDate: Long, secondDate: Long): Int =
             ((secondDate - currentDate) / 60 / 60 / 24).toInt()
 
-        fun calculateNearestIntakeIndex(intakes: List<Time>): Index? {
+        fun calculateNearestIntakeIndex(intakes: List<Time>): IntakeInitialData {
             val currentDateCalendar = Calendar.getInstance()
             intakes.forEachIndexed { index, time ->
                 currentDateCalendar.apply {
                     set(Calendar.HOUR_OF_DAY, time.hours)
                     set(Calendar.MINUTE, time.minutes)
                 }
-                if (currentDateCalendar.timeInMillis - System.currentTimeMillis() >= 0) return index
+                if (currentDateCalendar.timeInMillis - System.currentTimeMillis() >= 0) return IntakeInitialData(index, 0)
             }
-            return null
+            return IntakeInitialData(0, 1)
         }
 
         fun calculateDelayInMillis(firstTime: Time, secondTime: Time, daysDelta: Int): Long {

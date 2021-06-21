@@ -16,8 +16,8 @@ import ru.spbstu.gusev.medicinesstorage.extensions.hideKeyboard
 import ru.spbstu.gusev.medicinesstorage.extensions.setIconsColor
 import ru.spbstu.gusev.medicinesstorage.extensions.setupSearch
 import ru.spbstu.gusev.medicinesstorage.models.Reminder
-import ru.spbstu.gusev.medicinesstorage.ui.reminders.adapters.HaveToTakeRemindersAdapter
 import ru.spbstu.gusev.medicinesstorage.ui.reminders.adapters.RemindersAdapter
+import ru.spbstu.gusev.medicinesstorage.ui.reminders.adapters.TriggeredRemindersAdapter
 import ru.spbstu.gusev.medicinesstorage.ui.reminders.reminderdetails.ReminderDetailsFragment
 import ru.spbstu.gusev.medicinesstorage.utils.livedata.EventObserver
 
@@ -25,7 +25,7 @@ class RemindersFragment : Fragment() {
 
     val viewModel: RemindersViewModel by viewModel()
     private lateinit var binding: FragmentRemindersBinding
-    private lateinit var haveToTakeRemindersAdapter: HaveToTakeRemindersAdapter
+    private lateinit var triggeredRemindersAdapter: TriggeredRemindersAdapter
     private lateinit var remindersAdapter: RemindersAdapter
 
     override fun onCreateView(
@@ -39,7 +39,7 @@ class RemindersFragment : Fragment() {
         binding.lifecycleOwner = this.viewLifecycleOwner
         binding.viewmodel = viewModel
 
-        haveToTakeRemindersAdapter = HaveToTakeRemindersAdapter().apply {
+        triggeredRemindersAdapter = TriggeredRemindersAdapter().apply {
             setOnItemCheckedListener { reminder, view ->
                 val isChecked = (view as MaterialCheckBox).isChecked
                 if (isChecked) viewModel.completeNotification(reminder)
@@ -55,7 +55,7 @@ class RemindersFragment : Fragment() {
             setOnItemClickListener(::openReminder)
         }
 
-        binding.haveToTakeRemindersAdapter = haveToTakeRemindersAdapter
+        binding.triggeredRemindersAdapter = triggeredRemindersAdapter
         binding.remindersAdapter = remindersAdapter
 
         return binding.root
@@ -64,8 +64,8 @@ class RemindersFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.haveToTakeRemindersList.observe(viewLifecycleOwner, {
-            haveToTakeRemindersAdapter.submitList(it)
+        viewModel.triggeredRemindersList.observe(viewLifecycleOwner, {
+            triggeredRemindersAdapter.submitList(it)
         })
         viewModel.filteredRemindersList.observe(viewLifecycleOwner, {
             remindersAdapter.submitList(it)
@@ -79,7 +79,7 @@ class RemindersFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.account_search_menu, menu)
+        inflater.inflate(R.menu.search_menu, menu)
         val menuItem = menu.findItem(R.id.menu_item_search)
         val searchView = menuItem.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

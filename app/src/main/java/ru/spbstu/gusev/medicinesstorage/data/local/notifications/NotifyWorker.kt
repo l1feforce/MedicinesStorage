@@ -1,7 +1,6 @@
 package ru.spbstu.gusev.medicinesstorage.data.local.notifications
 
 import android.content.Context
-import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import org.koin.java.KoinJavaComponent.inject
@@ -24,7 +23,7 @@ class NotifyWorker(appContext: Context, workerParams: WorkerParameters) :
         val id = inputData.getInt(ID_KEY, 0)
         val triggeredReminderId = inputData.getInt(TRIGGERED_REMINDER_ID_KEY, 0)
         val isLast = inputData.getBoolean(IS_LAST, false)
-        Log.d("test", "doWork: triggeredReminderId: $triggeredReminderId")
+
         applicationContext.showNotification(title, body, id, triggeredReminderId)
         if (isLast) {
             changeIsStartedFlag(id)

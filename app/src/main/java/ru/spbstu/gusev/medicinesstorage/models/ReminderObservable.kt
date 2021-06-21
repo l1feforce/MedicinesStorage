@@ -1,7 +1,9 @@
 package ru.spbstu.gusev.medicinesstorage.models
 
+import androidx.annotation.Keep
 import androidx.lifecycle.MutableLiveData
 
+@Keep
 data class ReminderObservable(
     val id: Int = 0,
     val medicineId: Int = 0,

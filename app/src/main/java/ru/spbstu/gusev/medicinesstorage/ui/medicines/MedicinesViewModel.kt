@@ -15,7 +15,7 @@ class MedicinesViewModel(medicinesRepository: MedicinesRepository) : ViewModel()
     val medicinesList =
         medicinesRepository.getAllMedicines().asLiveData()
     val filteredMedicinesList = MutableLiveData(medicinesRepository.getAllMedicines().asLiveData().value)
-    val isEmptyRecyclerView =
+    val isEmptyMedicinesList =
         Transformations.map(medicinesList) { it.isEmpty() }
 
     val expiredMedicinesList = Transformations.map(filteredMedicinesList) { medicinesList ->

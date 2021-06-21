@@ -60,23 +60,7 @@ class MedicinesFragment : Fragment() {
             findNavController().navigate(R.id.navigation_medicine_details, bundle)
         })
         viewModel.addNewMedicineEvent.observe(viewLifecycleOwner, EventObserver {
-
-            /*MaterialAlertDialogBuilder(requireContext())
-                .setItems(resources.getStringArray(R.array.medicines_add_type_array)) { dialog, which ->
-                    when (which) {
-                        1 -> findNavController().navigate(R.id.navigation_medicines_search)
-                        else -> {
-                            PermissionsUtil.requestPermission(
-                                requireContext(),
-                                PermissionsUtil.cameraPermission,
-                                ""
-                            ) {
-                                findNavController().navigate(R.id.navigation_scanner)
-                            }
-                        }
-                    }
-                }.show()*/
-            val navOptions = NavOptions.Builder().apply { /*setPopUpTo(R.id.navigation_medicines, true)*/
+            val navOptions = NavOptions.Builder().apply {
                 this.setLaunchSingleTop(true)}.build()
             findNavController().navigate(R.id.navigation_medicines_search, null, navOptions)
         })
