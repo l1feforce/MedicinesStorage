@@ -32,7 +32,7 @@ class NotifyWorker(appContext: Context, workerParams: WorkerParameters) :
     }
 
     private suspend fun changeIsStartedFlag(reminderId: Int) {
-        val remindersRepository by inject(RemindersRepository::class.java)
+        val remindersRepository by inject<RemindersRepository>(RemindersRepository::class.java)
         val oldReminder = remindersRepository.getReminderById(reminderId)
         remindersRepository.updateReminder(oldReminder.copy(isStarted = false))
     }

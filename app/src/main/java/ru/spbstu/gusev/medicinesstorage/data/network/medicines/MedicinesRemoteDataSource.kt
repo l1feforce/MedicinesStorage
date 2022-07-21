@@ -28,7 +28,7 @@ class MedicinesRemoteDataSource : RemoteDataSource {
                 val subscription = eventDocument.addSnapshotListener { snapshot, _ ->
                     if (snapshot?.isEmpty == false) {
                         val medicines = snapshot.toObjects(Medicine::class.java)
-                        offer(medicines)
+                        trySend(medicines)
                     }
 
                 }

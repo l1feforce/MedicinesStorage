@@ -34,7 +34,7 @@ class NotificationActionsHandleReceiver : BroadcastReceiver() {
             isDelayed = it.getBoolean(IS_DELAYED, false)
         }
         NotificationManagerCompat.from(context).cancel(reminderId ?: 0)
-        val notificationsRepository by inject(NotificationsService::class.java)
+        val notificationsRepository by inject<NotificationsService>(NotificationsService::class.java)
 
         GlobalScope.launch(Dispatchers.IO) {
             when {
