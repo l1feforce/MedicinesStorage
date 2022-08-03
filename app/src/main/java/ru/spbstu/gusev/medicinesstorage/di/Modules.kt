@@ -4,6 +4,7 @@ import androidx.room.Room
 import androidx.work.WorkManager
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MEDICINES_DATABASE_NAME
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MedicinesDatabase
@@ -48,7 +49,7 @@ fun mainModule() = module {
 }
 
 fun viewModelsModel() = module {
-    viewModel { MedicinesViewModel(get()) }
+    viewModelOf(::MedicinesViewModel)
     viewModel { RemindersViewModel(get(), get()) }
     viewModel { AccountViewModel(get(), get()) }
     viewModel { MedicineDetailsViewModel(get()) }

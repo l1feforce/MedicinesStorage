@@ -3,32 +3,24 @@ package ru.spbstu.gusev.medicinesstorage.ui.medicines
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.compose.ui.platform.ComposeView
 import androidx.core.os.bundleOf
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.spbstu.gusev.medicinesstorage.R
-import ru.spbstu.gusev.medicinesstorage.databinding.FragmentMedicinesBinding
+import ru.spbstu.gusev.medicinesstorage.core.BaseFragment
 import ru.spbstu.gusev.medicinesstorage.extensions.getColorFromTheme
 import ru.spbstu.gusev.medicinesstorage.extensions.hideKeyboard
 import ru.spbstu.gusev.medicinesstorage.extensions.setIconsColor
 import ru.spbstu.gusev.medicinesstorage.extensions.setupSearch
-import ru.spbstu.gusev.medicinesstorage.ui.medicines.adapters.MedicinesAdapter
+import ru.spbstu.gusev.medicinesstorage.models.Medicine
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.medicinedetails.MEDICINE_DETAILS_KEY
 import ru.spbstu.gusev.medicinesstorage.ui.medicines.screens.medicines_list.MedicinesListScreen
-import ru.spbstu.gusev.medicinesstorage.utils.livedata.EventObserver
+import ru.spbstu.gusev.medicinesstorage.utils.composeContent
 
-class MedicinesFragment : Fragment() {
+class MedicinesFragment : BaseFragment() {
 
     val viewModel: MedicinesViewModel by viewModel()
-    private lateinit var binding: FragmentMedicinesBinding
-    private lateinit var freshMedicinesAdapter: MedicinesAdapter
-    private lateinit var expiredMedicinesAdapter: MedicinesAdapter
-
-    private val useCompose = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,53 +28,24 @@ class MedicinesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
-        if (!useCompose) {
-            binding =
-                DataBindingUtil.inflate(inflater, R.layout.fragment_medicines, container, false)
 
-            binding.lifecycleOwner = this.viewLifecycleOwner
-            binding.viewmodel = viewModel
-
-            freshMedicinesAdapter = MedicinesAdapter()
-            expiredMedicinesAdapter = MedicinesAdapter()
-
-            binding.expiredMedicinesAdapter = expiredMedicinesAdapter
-            binding.freshMedicinesAdapter = freshMedicinesAdapter
-
-            return binding.root
-        } else {
-            return ComposeView(requireContext()).apply {
-                setContent { MedicinesListScreen() }
-            }
+        return composeContent(requireContext()) {
+            MedicinesListScreen(viewModel,
+            onAddNewClick = ::onAddNewClick,
+            onOpenMedicineClick = ::onOpenMedicineClick)
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    private fun onAddNewClick() {
+        val navOptions = NavOptions.Builder().apply {
+            this.setLaunchSingleTop(true)
+        }.build()
+        findNavController().navigate(R.id.navigation_medicines_search, null, navOptions)
+    }
 
-        if (!useCompose) {
-            viewModel.freshMedicinesList.observe(viewLifecycleOwner, {
-                freshMedicinesAdapter.submitList(it)
-            })
-            viewModel.expiredMedicinesList.observe(viewLifecycleOwner, {
-                expiredMedicinesAdapter.submitList(it)
-            })
-            viewModel.openMedicineEvent.observe(
-                viewLifecycleOwner,
-                EventObserver { medicineDetails ->
-                    val bundle = bundleOf(MEDICINE_DETAILS_KEY to medicineDetails)
-                    findNavController().navigate(R.id.navigation_medicine_details, bundle)
-                })
-            viewModel.addNewMedicineEvent.observe(viewLifecycleOwner, EventObserver {
-                val navOptions = NavOptions.Builder().apply {
-                    this.setLaunchSingleTop(true)
-                }.build()
-                findNavController().navigate(R.id.navigation_medicines_search, null, navOptions)
-            })
-            viewModel.medicinesList.observe(viewLifecycleOwner, {
-                viewModel.filteredMedicinesList.value = it
-            })
-        }
+    private fun onOpenMedicineClick(medicineDetails: Medicine) {
+        val bundle = bundleOf(MEDICINE_DETAILS_KEY to medicineDetails)
+        findNavController().navigate(R.id.navigation_medicine_details, bundle)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

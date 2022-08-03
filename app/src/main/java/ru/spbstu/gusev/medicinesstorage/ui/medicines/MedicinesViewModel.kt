@@ -1,58 +1,64 @@
 package ru.spbstu.gusev.medicinesstorage.ui.medicines
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
 import ru.spbstu.gusev.medicinesstorage.data.local.medicines.MedicinesRepository
 import ru.spbstu.gusev.medicinesstorage.models.Medicine
-import ru.spbstu.gusev.medicinesstorage.utils.livedata.Event
 
-class MedicinesViewModel(medicinesRepository: MedicinesRepository) : ViewModel() {
+class MedicinesViewModel(private val medicinesRepository: MedicinesRepository) : ViewModel() {
 
-    private val currentTimeSeconds = System.currentTimeMillis() / 1000
+    private val currentTimeSeconds: Long
+        get() = System.currentTimeMillis() / 1000
 
-    val medicinesList =
-        medicinesRepository.getAllMedicines().asLiveData()
-    val filteredMedicinesList = MutableLiveData(medicinesRepository.getAllMedicines().asLiveData().value)
-    val isEmptyMedicinesList =
-        Transformations.map(medicinesList) { it.isEmpty() }
+    private var medicinesListState by mutableStateOf(emptyList<Medicine>())
+    var filteredMedicinesListState by mutableStateOf(emptyList<Medicine>())
+    fun isMedicinesListEmpty() = filteredMedicinesListState.isEmpty()
 
-    val expiredMedicinesList = Transformations.map(filteredMedicinesList) { medicinesList ->
-        medicinesList?.filter { medicine ->
-            currentTimeSeconds >= medicine.useUntil
-        } ?: listOf()
+    var isLoading by mutableStateOf(false)
+
+    var freshMedicinesListState by mutableStateOf(emptyList<Medicine>())
+    fun isFreshMedicinesListEmpty() = freshMedicinesListState.isEmpty()
+
+    var expiredMedicinesListState by mutableStateOf(emptyList<Medicine>())
+    fun isExpiredMedicinesListEmpty() = expiredMedicinesListState.isEmpty()
+
+    init {
+        viewModelScope.launch { observeMedicinesItems() }
     }
-    val isEmptyExpiredMedicinesList =
-        Transformations.map(expiredMedicinesList) { it.isEmpty() }
-
-    val freshMedicinesList = Transformations.map(filteredMedicinesList) { medicinesList ->
-        medicinesList?.filter { medicine ->
-            currentTimeSeconds < medicine.useUntil
-        } ?: listOf()
-    }
-    val isEmptyFreshMedicinesList =
-        Transformations.map(freshMedicinesList) { it.isEmpty() }
 
     fun filter(query: String?) {
-        val filteredList = medicinesList.value?.filter { medicine ->
+        val filteredList = medicinesListState.filter { medicine ->
             medicine.name.contains(
                 query ?: "",
                 ignoreCase = true
             )
         }
-        filteredMedicinesList.value = filteredList
+        filteredMedicinesListState = filteredList
+        filterMedicines(filteredMedicinesListState)
     }
 
-    val openMedicineEvent = MutableLiveData<Event<Medicine>>()
-
-    fun openMedicine(medicine: Medicine) {
-        openMedicineEvent.value = Event(medicine)
+    private suspend fun observeMedicinesItems() {
+        medicinesRepository.getAllMedicines()
+            .onStart { isLoading = true }
+            .collect { medicinesList ->
+                medicinesListState = medicinesList
+                filteredMedicinesListState = medicinesList
+                filterMedicines(medicinesList)
+                isLoading = false
+            }
     }
 
-    val addNewMedicineEvent = MutableLiveData<Event<Unit>>()
-
-    fun addNewMedicine() {
-        addNewMedicineEvent.value = Event(Unit)
+    private fun filterMedicines(medicinesList: List<Medicine>) {
+        freshMedicinesListState = medicinesList.filter { medicine ->
+            currentTimeSeconds < medicine.useUntil
+        }
+        expiredMedicinesListState = medicinesList.filter { medicine ->
+            currentTimeSeconds >= medicine.useUntil
+        }
     }
 }
